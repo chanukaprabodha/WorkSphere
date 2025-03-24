@@ -1,0 +1,8 @@
+package lk.ijse.worksphere.entity;
+
+/**
+ * Author: Chanuka Prabodha
+ * Date: 2025-03-12
+ * Time: 10:42 AM
+*/public class Attendance {
+}

@@ -1,0 +1,8 @@
+package lk.ijse.worksphere.config;
+
+/**
+ * Author: Chanuka Prabodha
+ * Date: 2025-03-12
+ * Time: 02:30 PM
+*/public class WebAppConfig {
+}

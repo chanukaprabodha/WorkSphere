@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Scorecard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(128, 0, 128, 0.8) 100%), url('background.jpg');
+            background-size: cover;
+            color: white;
+        }
+        .scorecard {
+            width: 80%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .team {
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .winner {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff66ff;
+        }
+        .flag {
+            width: 30px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="scorecard">
+    <h1 class="winner">NEW ZEALAND WIN</h1>
+    <p>BY 9 WICKETS</p>
+    <div class="team">
+        <img src="pakistan-flag.png" alt="Pakistan Flag" class="flag">
+        <span>Pakistan</span>
+        <span>91 (18.4 Overs)</span>
+    </div>
+    <div class="team">
+        <img src="newzealand-flag.png" alt="New Zealand Flag" class="flag">
+        <span>New Zealand</span>
+        <span>92/1 (10.1 Overs)</span>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+package lk.ijse.worksphere.service.impl;
+
+import lk.ijse.worksphere.service.RoleService;
+import lk.ijse.worksphere.util.IdGenerator;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Author: Chanuka Prabodha
+ * Date: 2025-03-19
+ * Time: 10:26 PM
+ */
+
+@Service
+public class RoleServiceImpl implements RoleService {
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Override
+    public void saveRole(RoleDTO roleDTO) {
+        String generatedId ;
+        do {
+            generatedId = IdGenerator.generateId("RL-");
+        } while (roleRepo.existsById(generatedId));
+        roleDTO.setId(generatedId);
+        try {
+            roleRepo.save(modelMapper.map(roleDTO, Role.class));
+        } catch (Exception e) {
+            throw new RuntimeException("Error: " + e);
+        }
+    }
+
+    @Override
+    public void updateRole(RoleDTO roleDTO) {
+        if (roleRepo.existsById(roleDTO.getId())) {
+            roleRepo.save(modelMapper.map(roleDTO, Role.class));
+        }
+        throw new RuntimeException("Role not found");
+    }
+
+    @Override
+    public void deleteRole(String id) {
+        if (roleRepo.existsById(id)) {
+            roleRepo.deleteById(id);
+        }
+        throw new RuntimeException("Role not found");
+    }
+
+    @Override
+    public List<RoleDTO> getAllRole() {
+        return modelMapper.map(
+                roleRepo.findAll(),
+                new TypeToken<List<RoleDTO>>(){}.getType());
+    }
+}

@@ -1,0 +1,22 @@
+package lk.ijse.worksphere.util;
+
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.UUID;
+
+/**
+ * Author: Chanuka Prabodha
+ * Date: 2025-03-12
+ * Time: 02:31 PM
+ */
+
+@Configuration
+public class IdGenerator {
+    @Bean
+    public static String generateId(String prefix) {
+        String uniquePart = UUID.randomUUID().toString().replace("-", "").substring(0, 10 - prefix.length()).toUpperCase();
+        return prefix + uniquePart;
+    }
+}

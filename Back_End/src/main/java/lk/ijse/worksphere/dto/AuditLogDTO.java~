@@ -1,0 +1,8 @@
+package lk.ijse.worksphere.dto;
+
+/**
+ * Author: Chanuka Prabodha
+ * Date: 2025-03-12
+ * Time: 01:59 PM
+*/public class AuditLogDTO {
+}
