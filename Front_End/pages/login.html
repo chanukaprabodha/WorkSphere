@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WorkSphere Login</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/login.css" />
+  </head>
+  <body>
+    <div class="container-fluid p-0">
+      <div class="row g-0 login-container">
+        <!-- Carousel Side -->
+        <div class="col-md-6 carousel-side">
+          <div
+            id="loginCarousel"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#loginCarousel"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#loginCarousel"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#loginCarousel"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#loginCarousel"
+                data-bs-slide-to="3"
+                aria-label="Slide 4"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#loginCarousel"
+                data-bs-slide-to="4"
+                aria-label="Slide 5"
+              ></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img
+                  src="/assets/images/kuala-lumpur-1820944_1280.jpg"
+                  alt="City skyline"
+                />
+                <div class="carousel-caption">
+                  <h1>Discover Significance in Insignificance</h1>
+                  <p>
+                    From busy sidewalks to global paths, all of them covered.
+                    Kenyan capital's up-and-coming journey now.
+                  </p>
+                </div>
+                <div class="carousel-location">Kuala Lumpur, Malaysia</div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="/assets/images/buildings-936589_1280.jpg"
+                  alt="Cityscape"
+                />
+                <div class="carousel-caption">
+                  <h1>Empower Your Workforce</h1>
+                  <p>
+                    Tools and solutions designed to bring out the best in your
+                    employees.
+                  </p>
+                </div>
+                <div class="carousel-location">Singapore</div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="/assets/images/streets-2278471_1280.jpg"
+                  alt="Business district"
+                />
+                <div class="carousel-caption">
+                  <h1>Streamline Your HR Processes</h1>
+                  <p>Efficient management systems for modern businesses.</p>
+                </div>
+                <div class="carousel-location">Tokyo, Japan</div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="/assets/images/buildings-1835647_1280.jpg"
+                  alt="Office building"
+                />
+                <div class="carousel-caption">
+                  <h1>Transform Your Workplace</h1>
+                  <p>Creating collaborative environments for success.</p>
+                </div>
+                <div class="carousel-location">New York, USA</div>
+              </div>
+              <div class="carousel-item">
+                <img
+                  src="/assets/images/skyscrapers-5838029_1280.jpg"
+                  alt="Urban landscape"
+                />
+                <div class="carousel-caption">
+                  <h1>Elevate Your Business</h1>
+                  <p>Solutions that grow with your organization.</p>
+                </div>
+                <div class="carousel-location">Sydney, Australia</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Login Side -->
+        <div class="col-md-6 login-side">
+          <img
+            src="/assets/images/logo.png"
+            alt="WorkSphere Logo"
+            class="login-logo"
+          />
+          <div class="login-form">
+            <h2>Welcome to WorkSphere</h2>
+            <p>Please sign in with your credentials</p>
+
+            <form>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-login">Login</button>
+            </form>
+
+            <div class="help-text">
+              <a href="#">Having trouble logging in?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the carousel with a 5-second interval
+        var myCarousel = new bootstrap.Carousel(
+          document.getElementById("loginCarousel"),
+          {
+            interval: 5000,
+            wrap: true,
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
