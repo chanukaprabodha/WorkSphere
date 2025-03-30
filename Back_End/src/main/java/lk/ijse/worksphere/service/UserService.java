@@ -1,6 +1,7 @@
 package lk.ijse.worksphere.service;
 
 import lk.ijse.worksphere.dto.UserDTO;
+import org.springframework.security.core.userdetails.UserDetails;
 
 /**
  * Author: Chanuka Prabodha
@@ -11,4 +12,6 @@ import lk.ijse.worksphere.dto.UserDTO;
 public interface UserService {
     int saveUser(UserDTO userDTO);
     UserDTO searchUser(String username);
+
+    UserDetails loadUserByUsername(String email);
 }
