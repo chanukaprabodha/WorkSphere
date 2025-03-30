@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * Time: 09:35 AM
  */
 
-@PreAuthorize("hasRole('ADMIN')")
+
 @RestController
 @RequestMapping("api/v1/user")
 @CrossOrigin(origins = "http://localhost:63342")
@@ -33,7 +33,8 @@ public class UserController {
     }
 
     @PostMapping(value = "register")
-    public ResponseEntity<ResponseDTO> registerUser(@RequestBody @Valid UserDTO userDTO) {
+    public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserDTO userDTO) {
+        System.out.println("Registering user controller" + userDTO);
         try {
             int res = userService.saveUser(userDTO);
             switch (res) {

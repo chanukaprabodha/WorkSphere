@@ -33,10 +33,14 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<ResponseDTO> authenticate(@RequestBody UserDTO userDTO) {
+        System.out.println("Authenticating user controller" + userDTO);
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
         } catch (Exception e) {
+            // Log the exception for debugging purposes
+            System.out.println(userDTO.getEmail() + " " + userDTO.getPassword());
+            System.out.println("Authentication failed: " + e.getMessage());
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ResponseDTO(VarList.Unauthorized, "Invalid Credentials", e.getMessage()));
         }
@@ -56,6 +60,8 @@ public class AuthController {
         AuthDTO authDTO = new AuthDTO();
         authDTO.setEmail(loadedUser.getEmail());
         authDTO.setToken(token);
+        authDTO.setRoles(loadedUser.getRoles());
+        System.out.println("AuthController line 64 : " + authDTO.getRoles());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(VarList.Created, "Success", authDTO));
