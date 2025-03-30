@@ -27,5 +27,4 @@ public class EmployeeDTO {
     private BigDecimal salary;
     private String profilePicture;
     private String departmentId;
-    private String roleId;
 }
