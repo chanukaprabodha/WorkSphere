@@ -5,6 +5,7 @@ import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,9 +40,9 @@ public class Employee {
     private String profilePicture;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
 
-    @Timestamp
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }

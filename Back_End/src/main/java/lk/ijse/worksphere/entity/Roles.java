@@ -7,5 +7,5 @@ package lk.ijse.worksphere.entity;
  */
 
 public enum Roles {
-    ADMIN, MANAGER, EMPLOYEE
+    ADMIN, EMPLOYEE
 }

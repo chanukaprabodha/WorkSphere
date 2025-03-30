@@ -28,12 +28,10 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
+//    @Column(unique = true, nullable = false)
     private Employee employee;
 
     @Enumerated(EnumType.STRING)
+//    @Column(nullable = false)
     private Roles roles;
-
-    public void setPassword(String password) {
-        this.password = new BCryptPasswordEncoder().encode(password);
-    }
 }
