@@ -33,7 +33,6 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<ResponseDTO> authenticate(@RequestBody UserDTO userDTO) {
-        System.out.println("Authenticating user controller" + userDTO);
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDTO.getEmail(), userDTO.getPassword()));
@@ -61,11 +60,9 @@ public class AuthController {
         authDTO.setEmail(loadedUser.getEmail());
         authDTO.setToken(token);
         authDTO.setRoles(loadedUser.getRoles());
-        System.out.println("AuthController line 64 : " + authDTO.getRoles());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(VarList.Created, "Success", authDTO));
     }
-
 }
 
