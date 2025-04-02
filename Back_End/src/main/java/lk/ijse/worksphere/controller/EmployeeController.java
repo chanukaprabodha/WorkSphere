@@ -2,7 +2,9 @@ package lk.ijse.worksphere.controller;
 
 import lk.ijse.worksphere.dto.EmployeeDTO;
 import lk.ijse.worksphere.dto.ResponseDTO;
+import lk.ijse.worksphere.dto.UserDTO;
 import lk.ijse.worksphere.service.EmployeeService;
+import lk.ijse.worksphere.util.JwtUtil;
 import lk.ijse.worksphere.util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,14 +20,15 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/v1/employee")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private JwtUtil jwtUtil;
 
     @PostMapping(path = "save")
     public ResponseEntity<ResponseDTO> saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        System.out.println("saveController");
         employeeService.saveEmployee(employeeDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseDTO(
@@ -80,5 +83,16 @@ public class EmployeeController {
                         VarList.OK,
                         "Employee fetched successfully",
                         employeeService.getAllEmployee()));
+    }
+
+    @GetMapping(path = "getEmployeeDetails")
+    public ResponseEntity<ResponseDTO> getLoggedInEmployee(@RequestHeader("Authorization") String token) {
+        String usernameFromToken = jwtUtil.getUsernameFromToken(token.substring(7));
+        EmployeeDTO employee = employeeService.getDetailsFromLoggedInUser(usernameFromToken);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(
+                        VarList.OK,
+                        "Employee fetched successfully",
+                        employee));
     }
 }

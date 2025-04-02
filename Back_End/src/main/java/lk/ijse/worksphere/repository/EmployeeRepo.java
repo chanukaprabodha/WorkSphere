@@ -4,6 +4,8 @@ import lk.ijse.worksphere.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Author: Chanuka Prabodha
  * Date: 2025-03-17
@@ -11,4 +13,5 @@ import org.springframework.stereotype.Repository;
  */
 
 public interface EmployeeRepo extends JpaRepository<Employee, String> {
+    Optional<Employee> findByEmail(String email);
 }

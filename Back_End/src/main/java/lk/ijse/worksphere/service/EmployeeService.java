@@ -16,4 +16,5 @@ public interface EmployeeService {
     void deleteEmployee(String id);
     EmployeeDTO findEmployee(String id);
     List<EmployeeDTO> getAllEmployee();
+    EmployeeDTO getDetailsFromLoggedInUser(String usernameFromToken);
 }
