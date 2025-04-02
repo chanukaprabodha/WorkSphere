@@ -1,4 +1,27 @@
 (function ($) {
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    const clockInBtn = document.getElementById('clockInBtn');
+    const clockOutBtn = document.getElementById('clockOutBtn');
+    const attendanceSection = document.querySelector('#attendance');
+  
+    clockInBtn.addEventListener('click', function () {
+        console.log('clicked in');
+        attendanceSection.classList.add('clocked-in');
+        // Hide Clock In button, show Clock Out button
+        clockInBtn.style.display = 'none';
+        clockOutBtn.style.display = 'block';
+    });
+  
+    clockOutBtn.addEventListener('click', function () {
+        console.log('clicked out');
+        attendanceSection.classList.remove('clocked-in');
+        // Hide Clock Out button, show Clock In button
+        clockOutBtn.style.display = 'none';
+        clockInBtn.style.display = 'block';
+    });
+});
+  
   'use strict';
   if ($("#visit-sale-chart").length) {
     const ctx = document.getElementById('visit-sale-chart');
@@ -208,23 +231,6 @@
       }]
     });
   }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const clockInBtn = document.getElementById('clockInBtn');
-    const clockOutBtn = document.getElementById('clockOutBtn');
-    const attendanceSection = document.querySelector('#attendance');
-  
-    clockInBtn.addEventListener('click', function () {
-      console.log('clicked in');
-        attendanceSection.classList.add('clocked-in');
-    });
-  
-    clockOutBtn.addEventListener('click', function () {
-      console.log('clicked out');
-        attendanceSection.classList.remove('clocked-in');
-    });
-  });
-
 
   if ($("#inline-datepicker").length) {
     $('#inline-datepicker').datepicker({
