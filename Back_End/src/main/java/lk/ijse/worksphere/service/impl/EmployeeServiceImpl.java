@@ -37,7 +37,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             employeeRepo.save(modelMapper.map(employeeDTO, Employee.class));
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error while saving employee: " + e.getMessage(), e);
         }
     }
 

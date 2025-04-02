@@ -32,6 +32,11 @@ public class JwtUtil implements Serializable {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
+    public String getEmployeeIdFromToken(String token) {
+        Claims claims = getAllClaimsFromToken(token);
+        return claims.get("employeeId", String.class);
+    }
+
     public Claims getUserRoleCodeFromToken(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
