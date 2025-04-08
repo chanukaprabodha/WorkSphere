@@ -10,7 +10,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -32,8 +34,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         } while (attendanceRepo.existsById(generatedId));
         AttendanceDTO attendanceDTO = new AttendanceDTO();
         attendanceDTO.setId(generatedId);
-        attendanceDTO.setInTime(LocalTime.now());
+        attendanceDTO.setDate(LocalDate.now());
+        attendanceDTO.setInTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
         attendanceDTO.setEmployeeId(employeeIdFromToken);
+        attendanceDTO.setStatus("PRESENT");
         try {
             attendanceRepo.save(modelMapper.map(attendanceDTO, Attendance.class));
         } catch (Exception e) {
@@ -42,10 +46,20 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     public void clockOut(String employeeIdFromToken) {
-        Optional<Attendance> optionalAttendance = attendanceRepo.findTopByEmployeeIdOrderByInTimeDesc(employeeIdFromToken);
+        Optional<Attendance> optionalAttendance = attendanceRepo.findTopByEmployeeIdOrderByDateDescInTimeDesc(employeeIdFromToken);
+
         if (optionalAttendance.isPresent()) {
             Attendance attendance = optionalAttendance.get();
-            attendance.setOutTime(LocalTime.now());
+            attendance.setOutTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
+
+            if (attendance.getInTime() != null) {
+                Duration duration = Duration.between(attendance.getInTime(), attendance.getOutTime());
+
+                // Convert duration to hours and minutes format (HH:mm)
+                LocalTime totalHours = LocalTime.ofNanoOfDay(duration.toNanos());
+                attendance.setTotalHours(Time.valueOf(totalHours));
+            }
+
             try {
                 attendanceRepo.save(attendance);
             } catch (Exception e) {
@@ -56,10 +70,9 @@ public class AttendanceServiceImpl implements AttendanceService {
         }
     }
 
-    public List<AttendanceDTO> getPastTwoDaysAttendance(String employeeId) {
-        LocalDateTime twoDaysAgo = LocalDateTime.now().minus(2, ChronoUnit.DAYS);
-        List<Attendance> pastTwoDaysRecords = attendanceRepo.findByEmployeeIdAndInTimeAfter(employeeId, twoDaysAgo);
-        return pastTwoDaysRecords.stream()
+    public List<AttendanceDTO> getLastTwoAttendanceRecords(String employeeId) {
+        List<Attendance> lastTwoRecords = attendanceRepo.findTop2ByEmployeeIdOrderByDateDescInTimeDesc(employeeId);
+        return lastTwoRecords.stream()
                 .map(attendance -> modelMapper.map(attendance, AttendanceDTO.class))
                 .toList();
     }
