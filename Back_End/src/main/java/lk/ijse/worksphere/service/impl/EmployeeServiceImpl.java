@@ -83,29 +83,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         );
     }
 
-    /*@Override
-    public EmployeeDTO getDetailsFromLoggedInUser(String usernameFromToken) {
-        System.out.println("usernameFromToken = " + usernameFromToken);
-
-        Employee employee = employeeRepo.findByEmail(usernameFromToken);
-        if (employee == null) {
-            throw new RuntimeException("Employee not found for email: " + usernameFromToken);
-        }
-
-        System.out.println(employee);
-
-        return modelMapper.map(employee, EmployeeDTO.class);
-    }*/
-
     @Override
     public EmployeeDTO getDetailsFromLoggedInUser(String usernameFromToken) {
-        System.out.println("usernameFromToken = " + usernameFromToken);
         Optional<Employee> optionalEmployee = employeeRepo.findByEmail(usernameFromToken);
         if (!optionalEmployee.isPresent()) {
             throw new RuntimeException("Employee not found for email: " + usernameFromToken);
         }
         Employee employee = optionalEmployee.get();
-        System.out.println("Employee found: " + employee);
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
