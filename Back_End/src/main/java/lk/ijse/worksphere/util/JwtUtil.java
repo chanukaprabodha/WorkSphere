@@ -33,12 +33,22 @@ public class JwtUtil implements Serializable {
     }
 
     public String getEmployeeIdFromToken(String token) {
-        Claims claims = getAllClaimsFromToken(token);
-        return claims.get("employeeId", String.class);
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(token)
+                    .getBody();
+            return claims.get("employeeId", String.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Claims getUserRoleCodeFromToken(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return Jwts.parser()
+                .setSigningKey(secretKey)
+                .parseClaimsJws(token)
+                .getBody();
     }
 
     //retrieve expiration date from jwt token
@@ -70,6 +80,7 @@ public class JwtUtil implements Serializable {
     public String generateToken(UserDTO userDTO) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role",userDTO.getRoles());
+        claims.put("employeeId",userDTO.getEmployeeId());
         return doGenerateToken(claims, userDTO.getEmail());
     }
 
