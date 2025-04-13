@@ -30,6 +30,7 @@ public class EmployeeController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(path = "save")
     public ResponseEntity<ResponseDTO> saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
         employeeService.saveEmployee(employeeDTO);
@@ -98,4 +99,24 @@ public class EmployeeController {
                         "Employee fetched successfully",
                         employee));
     }
+
+    @GetMapping(path = "upcomingBirthdays")
+    public ResponseEntity<ResponseDTO> upcomingBirthday(@RequestHeader("Authorization") String token) {
+        System.out.println("Finding upcoming birthdays in controller");
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(
+                        VarList.OK,
+                        "Upcoming birthdays fetched successfully",
+                        employeeService.upcomingBirthday(token)));
+    }
+
+    @GetMapping(path = "allBirthdays")
+    public ResponseEntity<ResponseDTO> allBirthdays(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(
+                        VarList.OK,
+                        "All birthdays fetched successfully",
+                        employeeService.allBirthdays(token)));
+    }
+
 }

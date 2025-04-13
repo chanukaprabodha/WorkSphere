@@ -5,14 +5,15 @@ import lk.ijse.worksphere.entity.Employee;
 import lk.ijse.worksphere.repository.EmployeeRepo;
 import lk.ijse.worksphere.service.EmployeeService;
 import lk.ijse.worksphere.util.IdGenerator;
-import lk.ijse.worksphere.util.VarList;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Author: Chanuka Prabodha
@@ -29,13 +30,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void saveEmployee(EmployeeDTO employeeDTO) {
-        String generatedId ;
+        String generatedId;
         do {
-            generatedId = IdGenerator.generateId("EMP-");
+            generatedId = IdGenerator.generateId("EMP");
         } while (employeeRepo.existsById(generatedId));
         employeeDTO.setId(generatedId);
+        // Set default leave values only if not already set
+        if (employeeDTO.getAnnualLeaves() == 0) employeeDTO.setAnnualLeaves(14);
+        if (employeeDTO.getCasualLeave() == 0) employeeDTO.setCasualLeave(7);
+        if (employeeDTO.getSickLeave() == 0) employeeDTO.setSickLeave(7);
+
+        // Set leaveBalance as the sum of the above
+        employeeDTO.setLeaveBalance(
+                employeeDTO.getAnnualLeaves() +
+                        employeeDTO.getCasualLeave() +
+                        employeeDTO.getSickLeave()
+        );
         try {
-            employeeRepo.save(modelMapper.map(employeeDTO, Employee.class));
+            Employee employee = modelMapper.map(employeeDTO, Employee.class);
+            employeeRepo.save(employee);
         } catch (Exception e) {
             throw new RuntimeException("Error while saving employee: " + e.getMessage(), e);
         }
@@ -46,6 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = employeeRepo.findById(id).get();
         return modelMapper.map(employee, EmployeeDTO.class);
     }*/
+
     @Override
     public EmployeeDTO findEmployee(String id) {
         System.out.println("Finding employee with id: " + id);
@@ -79,7 +93,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<EmployeeDTO> getAllEmployee() {
         return modelMapper.map(
                 employeeRepo.findAll(),
-                new TypeToken<List<EmployeeDTO>>(){}.getType()
+                new TypeToken<List<EmployeeDTO>>() {
+                }.getType()
         );
     }
 
@@ -91,6 +106,39 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         Employee employee = optionalEmployee.get();
         return modelMapper.map(employee, EmployeeDTO.class);
+    }
+
+    @Override
+    public List<EmployeeDTO> upcomingBirthday(String usernameFromToken) {
+        System.out.println("Finding upcoming birthdays in service");
+        LocalDate today = LocalDate.now();
+        int month = today.getMonthValue();
+        int day = today.getDayOfMonth();
+
+        return employeeRepo.findUpcomingBirthdays(month, day)
+                .stream()
+                .map(emp -> {
+                    EmployeeDTO dto = modelMapper.map(emp, EmployeeDTO.class);
+                    if (emp.getDepartment() != null) {
+                        dto.setDepartmentId(emp.getDepartment().getId());
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDTO> allBirthdays(String usernameFromToken) {
+        return employeeRepo.findAllByBirthdayOrder()
+                .stream()
+                .map(emp -> {
+                    EmployeeDTO dto = modelMapper.map(emp, EmployeeDTO.class);
+                    if (emp.getDepartment() != null) {
+                        dto.setDepartmentId(emp.getDepartment().getId());
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 }

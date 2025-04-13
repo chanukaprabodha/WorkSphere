@@ -12,9 +12,18 @@ import java.util.List;
 
 public interface EmployeeService {
     void saveEmployee(EmployeeDTO employeeDTO);
+
     void updateEmployee(EmployeeDTO employeeDTO);
+
     void deleteEmployee(String id);
+
     EmployeeDTO findEmployee(String id);
+
     List<EmployeeDTO> getAllEmployee();
+
     EmployeeDTO getDetailsFromLoggedInUser(String usernameFromToken);
+
+    List<EmployeeDTO> upcomingBirthday(String usernameFromToken);
+
+    List<EmployeeDTO> allBirthdays(String usernameFromToken);
 }
