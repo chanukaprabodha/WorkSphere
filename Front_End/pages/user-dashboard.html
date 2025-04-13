@@ -221,7 +221,10 @@
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
                   <span class="font-weight-bold mb-2" id="employeeName"></span>
-                  <span class="text-secondary text-small" id="employeePosition"></span>
+                  <span
+                    class="text-secondary text-small"
+                    id="employeePosition"
+                  ></span>
                 </div>
                 <i
                   class="mdi mdi-bookmark-check text-success nav-profile-badge"
@@ -229,19 +232,19 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="user-dashboard.html">
+              <a class="nav-link" data-target="dashboardSection" href="#">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="user-attendance.html">
+              <a class="nav-link" data-target="attendanceSection" href="#">
                 <span class="menu-title">Attendance</span>
                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="user-leave.html">
+              <a class="nav-link" data-target="leaveSection" href="#">
                 <span class="menu-title">Apply Leave</span>
                 <i class="mdi mdi-chart-bar menu-icon"></i>
               </a>
@@ -270,627 +273,1264 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title">
-                <span
-                  class="page-title-icon bg-gradient-primary text-white me-2"
-                >
-                  <i class="mdi mdi-home"></i>
-                </span>
-                Employee Dashboard
-              </h3>
-            </div>
-            <div class="row">
-              <!-- Total Attendance -->
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Total Attendance
-                      <i class="mdi mdi-calendar-check mdi-24px float-end"></i>
-                    </h4>
-                    <h2 class="mb-5" id="totalAttendance">22/30 Days</h2>
-                    <h6 class="card-text">Present this Month</h6>
+            <!-- Dashboard -->
+            <section id="dashboardSection">
+              <div class="page-header">
+                <h3 class="page-title">
+                  <span
+                    class="page-title-icon bg-gradient-primary text-white me-2"
+                  >
+                    <i class="mdi mdi-home"></i>
+                  </span>
+                  Employee Dashboard
+                </h3>
+              </div>
+              <div class="row">
+                <!-- Total Attendance -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-danger card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Total Attendance
+                        <i
+                          class="mdi mdi-calendar-check mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5" id="totalAttendance">22/30 Days</h2>
+                      <h6 class="card-text">Present this Month</h6>
+                    </div>
+                  </div>
+                </div>
+                <!-- Leave Balance -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Leave Balance
+                        <i
+                          class="mdi mdi-calendar-remove mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5" id="leaveBalance"></h2>
+                      <h6 class="card-text">Available Leaves</h6>
+                    </div>
+                  </div>
+                </div>
+                <!-- Salary -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-success card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Total Salary
+                        <i class="mdi mdi-cash mdi-24px float-end"></i>
+                      </h4>
+                      <h2 class="mb-5">$ 4,500</h2>
+                      <h6 class="card-text">March 2024</h6>
+                    </div>
                   </div>
                 </div>
               </div>
-              <!-- Leave Balance -->
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Leave Balance
-                      <i class="mdi mdi-calendar-remove mdi-24px float-end"></i>
-                    </h4>
-                    <h2 class="mb-5">8 Days</h2>
-                    <h6 class="card-text">Available Leaves</h6>
-                  </div>
-                </div>
-              </div>
-              <!-- Salary -->
-              <div class="col-md-4 stretch-card grid-margin">
-                <div
-                  class="card bg-gradient-success card-img-holder text-white"
-                >
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Total Salary
-                      <i class="mdi mdi-cash mdi-24px float-end"></i>
-                    </h4>
-                    <h2 class="mb-5">$ 4,500</h2>
-                    <h6 class="card-text">March 2024</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            <div class="row">
-              <!-- left side -->
-              <div class="col-md-6">
-                <!-- Attendance Section -->
-                <div class="row" id="attendance">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">Attendance</h4>
-                        <div class="attendance-toggle text-center mb-4">
-                          <!-- On Button (Only visible when attendance is off) -->
-                          <button
-                            id="clockInBtn"
-                            class="btn btn-success btn-lg w-50 py-3 attendance-on"
-                          >
-                            <i class="mdi mdi-clock-start me-2"></i>Clock In
-                          </button>
-
-                          <!-- Off Button (Only visible when attendance is on) -->
-                          <button
-                            id="clockOutBtn"
-                            class="btn btn-danger btn-lg w-50 py-3 attendance-off"
-                          >
-                            <i class="mdi mdi-clock-end me-2"></i>Clock Out
-                          </button>
-                        </div>
-
-                        <!-- Current Status Display -->
-                        <div class="attendance-status text-center mb-4">
+              <div class="row">
+                <!-- left side -->
+                <div class="col-md-6">
+                  <!-- Attendance Section -->
+                  <div class="row" id="attendance">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Attendance</h4>
                           <div
-                            id="onStatusBadge"
-                            class="badge bg-success py-2 px-3 attendance-on"
+                            class="attendance-toggle text-center mt-4 mb-4 d-flex align-content-center justify-content-center"
                           >
-                            <i class="mdi mdi-check-circle me-2"></i>Clocked In
-                            at 09:00 AM
-                          </div>
-                          <div
-                            id="offStatusBadge"
-                            class="badge bg-secondary py-2 px-3 attendance-off"
-                          >
-                            <i class="mdi mdi-clock-outline me-2"></i>Not
-                            Clocked In
-                          </div>
-                        </div>
-
-                        <!-- Attendance History -->
-                        <div class="table-responsive">
-                          <table class="table table-hover">
-                            <thead>
-                              <tr>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Check-in</th>
-                                <th>Check-out</th>
-                                <th>Total Hours</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>2024-03-20</td>
-                                <td>
-                                  <span class="badge badge-gradient-success"
-                                    >Present</span
-                                  >
-                                </td>
-                                <td>09:00 AM</td>
-                                <td>06:00 PM</td>
-                                <td>9h 00m</td>
-                              </tr>
-                              <tr>
-                                <td>2024-03-19</td>
-                                <td>
-                                  <span class="badge badge-gradient-danger"
-                                    >Absent</span
-                                  >
-                                </td>
-                                <td>-</td>
-                                <td>-</td>
-                                <td>-</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Payroll Section -->
-                <div class="row" id="payroll">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title">Salary Breakdown</h4>
-                        <div class="table-responsive">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Earnings</th>
-                                <th>Amount</th>
-                                <th>Deductions</th>
-                                <th>Amount</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Basic Salary</td>
-                                <td>$ 3,500</td>
-                                <td>Professional Tax</td>
-                                <td>$ 200</td>
-                              </tr>
-                              <tr>
-                                <td>House Rent Allowance</td>
-                                <td>$ 700</td>
-                                <td>Provident Fund</td>
-                                <td>$ 420</td>
-                              </tr>
-                              <tr>
-                                <td>Conveyance Allowance</td>
-                                <td>$ 300</td>
-                                <td>Income Tax</td>
-                                <td>$ 380</td>
-                              </tr>
-                              <tr>
-                                <td><strong>Total Earnings</strong></td>
-                                <td><strong>$ 4,500</strong></td>
-                                <td><strong>Total Deductions</strong></td>
-                                <td><strong>$ 1,000</strong></td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                        <div class="mt-3">
-                          <button class="btn btn-success">
-                            <i class="mdi mdi-download me-2"></i>Download
-                            Payslip
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- vision-mission Section -->
-                <div class="row" id="vision-mission">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title fw-medium mb-4">
-                          Our Vision & Mission
-                        </h4>
-                        <div class="row">
-                          <div class="col-md-6 mb-3">
-                            <div class="border-bottom pb-3 mb-3">
-                              <h5 class="text-primary">
-                                <i class="mdi mdi-eye me-2"></i>Our Vision
-                              </h5>
-                              <p class="text-muted">
-                                To be the global leader in innovative technology
-                                solutions, empowering businesses to transform
-                                and thrive in the digital era.
-                              </p>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="border-bottom pb-3 mb-3">
-                              <h5 class="text-success">
-                                <i class="mdi mdi-target me-2"></i>Our Mission
-                              </h5>
-                              <p class="text-muted">
-                                Deliver cutting-edge technology solutions that
-                                drive operational excellence, foster innovation,
-                                and create sustainable value for our clients,
-                                employees, and communities.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="text-center">
-                          <button class="btn btn-inverse-success">
-                            <i class="mdi mdi-information-outline me-2"></i
-                            >Learn More About Us
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Employee Directory Section -->
-                <div class="row" id="employee-directory">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title fw-medium mb-4">
-                          Employee Directory
-                        </h4>
-
-                        <!-- Search Bar -->
-                        <div class="input-group mb-4">
-                          <span class="input-group-text">
-                            <i class="mdi mdi-magnify"></i>
-                          </span>
-                          <input
-                            type="text"
-                            class="form-control border-1 border-secondary"
-                            placeholder="Search employees by name, department, or role..."
-                            id="employee-search-input"
-                          />
-                          <button
-                            class="btn btn-inverse-success"
-                            type="button"
-                            id="employee-search-btn"
-                          >
-                            <i class="mdi mdi-account-search me-2"></i>Search
-                          </button>
-                        </div>
-
-                        <!-- Employee List -->
-                        <!-- <div class="table-responsive">
-                          <table class="table table-hover" id="employee-table">
-                            <thead>
-                              <tr>
-                                <th>Photo</th>
-                                <th>Name</th>
-                                <th>Department</th>
-                                <th>Role</th>
-                                <th>Contact</th>
-                                <th>Actions</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <img
-                                    src="/api/placeholder/50/50"
-                                    class="rounded-circle"
-                                    alt="Employee Photo"
-                                  />
-                                </td>
-                                <td>John Smith</td>
-                                <td>Sales</td>
-                                <td>Sales Manager</td>
-                                <td>john.smith@company.com</td>
-                                <td>
-                                  <button
-                                    class="btn btn-sm btn-outline-primary"
-                                  >
-                                    <i
-                                      class="mdi mdi-account-card-details me-1"
-                                    ></i
-                                    >Profile
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <img
-                                    src="/api/placeholder/50/50"
-                                    class="rounded-circle"
-                                    alt="Employee Photo"
-                                  />
-                                </td>
-                                <td>Emily Johnson</td>
-                                <td>Marketing</td>
-                                <td>Marketing Specialist</td>
-                                <td>emily.johnson@company.com</td>
-                                <td>
-                                  <button
-                                    class="btn btn-sm btn-outline-primary"
-                                  >
-                                    <i
-                                      class="mdi mdi-account-card-details me-1"
-                                    ></i
-                                    >Profile
-                                  </button>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <img
-                                    src="/api/placeholder/50/50"
-                                    class="rounded-circle"
-                                    alt="Employee Photo"
-                                  />
-                                </td>
-                                <td>Michael Chen</td>
-                                <td>IT</td>
-                                <td>Senior Developer</td>
-                                <td>michael.chen@company.com</td>
-                                <td>
-                                  <button
-                                    class="btn btn-sm btn-outline-primary"
-                                  >
-                                    <i
-                                      class="mdi mdi-account-card-details me-1"
-                                    ></i
-                                    >Profile
-                                  </button>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div> -->
-
-                        <!-- Pagination -->
-                        <!-- <nav
-                          aria-label="Employee directory pagination"
-                          class="mt-3"
-                        >
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1"
-                                >Previous</a
-                              >
-                            </li>
-                            <li class="page-item active">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- right side -->
-              <div class="col-md-6">
-                <!-- Birthdays Section -->
-                <div class="row" id="birthdays">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title fw-medium mb-4">
-                          Upcoming Birthdays
-                        </h4>
-                        <div class="list-group">
-                          <div
-                            class="list-group-item d-flex justify-content-between align-items-center"
-                          >
-                            <div class="d-flex align-items-center">
-                              <img
-                                src="/api/placeholder/50/50"
-                                class="rounded-circle me-3"
-                                alt="Employee Avatar"
-                              />
-                              <div>
-                                <h5 class="mb-1">John Smith</h5>
-                                <p class="text-muted mb-0">Sales Department</p>
-                              </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill"
-                              >Mar 30</span
+                            <!-- On Button (Only visible when attendance is off) -->
+                            <button
+                              id="clockInBtn"
+                              class="btn btn-success btn-lg w-50 py-3 attendance-on"
                             >
-                          </div>
-                          <div
-                            class="list-group-item d-flex justify-content-between align-items-center"
-                          >
-                            <div class="d-flex align-items-center">
-                              <img
-                                src="/api/placeholder/50/50"
-                                class="rounded-circle me-3"
-                                alt="Employee Avatar"
-                              />
-                              <div>
-                                <h5 class="mb-1">Emily Johnson</h5>
-                                <p class="text-muted mb-0">Marketing Team</p>
-                              </div>
-                            </div>
-                            <span class="badge bg-success rounded-pill"
-                              >Apr 05</span
+                              <i class="mdi mdi-clock-start me-2"></i>Clock In
+                            </button>
+
+                            <!-- Off Button (Only visible when attendance is on) -->
+                            <button
+                              id="clockOutBtn"
+                              class="btn btn-danger btn-lg w-50 py-3 attendance-off align-content-center"
                             >
+                              <i class="mdi mdi-clock-end me-2"></i>Clock Out
+                            </button>
                           </div>
-                          <div
-                            class="list-group-item d-flex justify-content-between align-items-center"
-                          >
-                            <div class="d-flex align-items-center">
-                              <img
-                                src="/api/placeholder/50/50"
-                                class="rounded-circle me-3"
-                                alt="Employee Avatar"
-                              />
-                              <div>
-                                <h5 class="mb-1">Michael Chen</h5>
-                                <p class="text-muted mb-0">IT Department</p>
-                              </div>
-                            </div>
-                            <span class="badge bg-warning rounded-pill"
-                              >Apr 12</span
+
+                          <!-- Current Status Display -->
+                          <div class="attendance-status text-center mb-4">
+                            <div
+                              id="onStatusBadge"
+                              class="badge bg-success py-2 px-3 attendance-on"
                             >
+                              <i class="mdi mdi-check-circle me-2"></i>
+                            </div>
+                            <div
+                              id="offStatusBadge"
+                              class="badge bg-secondary py-2 px-3 attendance-off"
+                            >
+                              <i class="mdi mdi-clock-outline me-2"></i>
+                            </div>
                           </div>
-                        </div>
-                        <div class="mt-3 text-center">
-                          <button class="btn btn-inverse-success">
-                            <i class="mdi mdi-cake me-2"></i>View All Birthdays
-                          </button>
+                          <div class="table-responsive">
+                            <table class="table table-hover">
+                              <thead>
+                                <tr>
+                                  <th>Date</th>
+                                  <th>Status</th>
+                                  <th>Check-in</th>
+                                  <th>Check-out</th>
+                                  <th>TotalHours</th>
+                                </tr>
+                              </thead>
+                              <tbody id="attendanceTable"></tbody>
+                            </table>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <!-- Leave Management Section -->
-                <div class="row" id="leave">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <div
-                          class="d-flex justify-content-between align-items-center mb-4"
-                        >
-                          <h4 class="card-title fw-medium">Absences</h4>
-                          <button class="btn btn-inverse-success btn-sm">
-                            <i class="mdi mdi-calendar-check me-2"></i>Leave
-                            Page
-                          </button>
+                  <!-- Payroll Section -->
+                  <div class="row" id="payroll">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title">Salary Breakdown</h4>
+                          <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>Earnings</th>
+                                  <th>Amount</th>
+                                  <th>Deductions</th>
+                                  <th>Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Basic Salary</td>
+                                  <td>$ 3,500</td>
+                                  <td>Professional Tax</td>
+                                  <td>$ 200</td>
+                                </tr>
+                                <tr>
+                                  <td>House Rent Allowance</td>
+                                  <td>$ 700</td>
+                                  <td>Provident Fund</td>
+                                  <td>$ 420</td>
+                                </tr>
+                                <tr>
+                                  <td>Conveyance Allowance</td>
+                                  <td>$ 300</td>
+                                  <td>Income Tax</td>
+                                  <td>$ 380</td>
+                                </tr>
+                                <tr>
+                                  <td><strong>Total Earnings</strong></td>
+                                  <td><strong>$ 4,500</strong></td>
+                                  <td><strong>Total Deductions</strong></td>
+                                  <td><strong>$ 1,000</strong></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="mt-3">
+                            <button class="btn btn-success">
+                              <i class="mdi mdi-download me-2"></i>Download
+                              Payslip
+                            </button>
+                          </div>
                         </div>
-                        <p class="form-label">I am on Leave</p>
-                        <div
-                          class="btn-group w-100 d-flex justify-content-center align-content-between column-gap-3"
-                        >
-                          <button
-                            type="button"
-                            class="btn btn-inverse-success btn-fw"
-                          >
-                            Today
-                          </button>
-                          <button
-                            type="button"
-                            class="btn btn-inverse-success btn-fw"
-                          >
-                            Tomorrow
-                          </button>
-                        </div>
-                        <form>
-                          <div class="row my-3">
-                            <div class="col-md-6 mb-3 mt-2">
-                              <label class="form-label">Leave Type</label>
-                              <select
-                                class="form-select"
-                                style="border: 1px solid"
-                              >
-                                <option>Casual Leave</option>
-                                <option>Sick Leave</option>
-                                <option>Earned Leave</option>
-                              </select>
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-6 my-1">
-                                <div class="input-group mb-2">
-                                  <span
-                                    class="input-group-text btn-inverse-success"
-                                    >From</span
-                                  >
-                                  <input
-                                    type="date"
-                                    class="form-control border-1 border-secondary"
-                                  />
-                                </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- vision-mission Section -->
+                  <div class="row" id="vision-mission">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title fw-medium mb-4">
+                            Our Vision & Mission
+                          </h4>
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                              <div class="border-bottom pb-3 mb-3">
+                                <h5 class="text-primary">
+                                  <i class="mdi mdi-eye me-2"></i>Our Vision
+                                </h5>
+                                <p class="text-muted">
+                                  To be the global leader in innovative
+                                  technology solutions, empowering businesses to
+                                  transform and thrive in the digital era.
+                                </p>
                               </div>
-                              <div class="col-sm-6 mb-1">
-                                <div class="input-group">
-                                  <input
-                                    type="date"
-                                    class="form-control border-1 border-secondary"
-                                  />
-                                  <span
-                                    class="input-group-text btn-inverse-success"
-                                    >To</span
-                                  >
-                                </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="border-bottom pb-3 mb-3">
+                                <h5 class="text-success">
+                                  <i class="mdi mdi-target me-2"></i>Our Mission
+                                </h5>
+                                <p class="text-muted">
+                                  Deliver cutting-edge technology solutions that
+                                  drive operational excellence, foster
+                                  innovation, and create sustainable value for
+                                  our clients, employees, and communities.
+                                </p>
                               </div>
                             </div>
                           </div>
-                          <div class="mb-4">
-                            <label class="form-label">Reason</label>
-                            <textarea
+                          <div class="text-center">
+                            <button class="btn btn-inverse-success">
+                              <i class="mdi mdi-information-outline me-2"></i
+                              >Learn More About Us
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Employee Directory Section -->
+                  <div class="row" id="employee-directory">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title fw-medium mb-4">
+                            Employee Directory
+                          </h4>
+
+                          <!-- Search Bar -->
+                          <div class="input-group mb-4">
+                            <span class="input-group-text">
+                              <i class="mdi mdi-magnify"></i>
+                            </span>
+                            <input
+                              type="text"
                               class="form-control border-1 border-secondary"
-                              placeholder="Enter your reason..."
-                              rows="3"
-                            ></textarea>
+                              placeholder="Search employees by name, department, or role..."
+                              id="employee-search-input"
+                            />
+                            <button
+                              class="btn btn-inverse-success"
+                              type="button"
+                              id="employee-search-btn"
+                            >
+                              <i class="mdi mdi-account-search me-2"></i>Search
+                            </button>
                           </div>
-                          <button type="submit" class="btn btn-inverse-success">
-                            <i class="fa fa-thumbs-o-up me-3"></i>Send Request
-                          </button>
-                        </form>
+
+                          <!-- Employee List -->
+                          <!-- <div class="table-responsive">
+                            <table class="table table-hover" id="employee-table">
+                              <thead>
+                                <tr>
+                                  <th>Photo</th>
+                                  <th>Name</th>
+                                  <th>Department</th>
+                                  <th>Role</th>
+                                  <th>Contact</th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <img
+                                      src="/api/placeholder/50/50"
+                                      class="rounded-circle"
+                                      alt="Employee Photo"
+                                    />
+                                  </td>
+                                  <td>John Smith</td>
+                                  <td>Sales</td>
+                                  <td>Sales Manager</td>
+                                  <td>john.smith@company.com</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-sm btn-outline-primary"
+                                    >
+                                      <i
+                                        class="mdi mdi-account-card-details me-1"
+                                      ></i
+                                      >Profile
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <img
+                                      src="/api/placeholder/50/50"
+                                      class="rounded-circle"
+                                      alt="Employee Photo"
+                                    />
+                                  </td>
+                                  <td>Emily Johnson</td>
+                                  <td>Marketing</td>
+                                  <td>Marketing Specialist</td>
+                                  <td>emily.johnson@company.com</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-sm btn-outline-primary"
+                                    >
+                                      <i
+                                        class="mdi mdi-account-card-details me-1"
+                                      ></i
+                                      >Profile
+                                    </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <img
+                                      src="/api/placeholder/50/50"
+                                      class="rounded-circle"
+                                      alt="Employee Photo"
+                                    />
+                                  </td>
+                                  <td>Michael Chen</td>
+                                  <td>IT</td>
+                                  <td>Senior Developer</td>
+                                  <td>michael.chen@company.com</td>
+                                  <td>
+                                    <button
+                                      class="btn btn-sm btn-outline-primary"
+                                    >
+                                      <i
+                                        class="mdi mdi-account-card-details me-1"
+                                      ></i
+                                      >Profile
+                                    </button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div> -->
+
+                          <!-- Pagination -->
+                          <!-- <nav
+                            aria-label="Employee directory pagination"
+                            class="mt-3"
+                          >
+                            <ul class="pagination justify-content-center">
+                              <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1"
+                                  >Previous</a
+                                >
+                              </li>
+                              <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                              </li>
+                              <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                              </li>
+                            </ul>
+                          </nav> -->
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- Announcements Section -->
-                <div class="row" id="announcements">
-                  <div class="col-12 grid-margin stretch-card">
-                    <div class="card">
-                      <div class="card-body">
-                        <h4 class="card-title fw-medium mb-4">Announcements</h4>
-                        <div class="list-group">
-                          <a
-                            href="#"
-                            class="list-group-item list-group-item-action"
-                          >
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">Annual Team Building Event</h5>
-                              <small class="text-muted">2 days ago</small>
-                            </div>
-                            <p class="mb-1">
-                              Join us for our upcoming team building retreat on
-                              April 15th-16th. Details to follow soon!
-                            </p>
-                          </a>
-                          <a
-                            href="#"
-                            class="list-group-item list-group-item-action"
-                          >
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">Performance Review Period</h5>
-                              <small class="text-muted">1 week ago</small>
-                            </div>
-                            <p class="mb-1">
-                              Annual performance reviews will begin next month.
-                              Please prepare your self-assessment documents.
-                            </p>
-                          </a>
-                          <a
-                            href="#"
-                            class="list-group-item list-group-item-action"
-                          >
-                            <div class="d-flex w-100 justify-content-between">
-                              <h5 class="mb-1">New Benefits Program</h5>
-                              <small class="text-muted">2 weeks ago</small>
-                            </div>
-                            <p class="mb-1">
-                              We're excited to announce expanded health and
-                              wellness benefits for all employees.
-                            </p>
-                          </a>
+
+                <!-- right side -->
+                <div class="col-md-6">
+                  <!-- Birthdays Section -->
+                  <div class="row" id="birthdays">
+                    <div class="col-12 grid-margin stretch-card" id="birthdays">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title fw-medium mb-4">
+                            Upcoming Birthdays
+                          </h4>
+                          <div class="list-group"></div>
+                          <div class="mt-3 text-center">
+                            <button
+                              class="btn btn-inverse-success"
+                              data-bs-toggle="modal"
+                              data-bs-target="#birthdayModal"
+                              onclick="loadAllBirthdays()"
+                            >
+                              <i class="mdi mdi-cake me-2"></i>View All
+                              Birthdays
+                            </button>
+                          </div>
                         </div>
-                        <div class="mt-3 text-center">
-                          <button class="btn btn-inverse-success">
-                            <i class="mdi mdi-bell-ring me-2"></i>View All
+                      </div>
+                    </div>
+                    <!-- Modal for All Birthdays -->
+                    <div
+                      class="modal fade"
+                      id="birthdayModal"
+                      tabindex="-1"
+                      aria-labelledby="birthdayModalLabel"
+                      aria-hidden="true"
+                    >
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="birthdayModalLabel">
+                              All Employee Birthdays
+                            </h5>
+                            <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div class="modal-body">
+                            <ul class="list-group" id="allBirthdaysList">
+                              <!-- Filled dynamically -->
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Leave Management Section -->
+                  <div class="row" id="leave">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <div
+                            class="d-flex justify-content-between align-items-center mb-4"
+                          >
+                            <h4 class="card-title fw-medium">Absences</h4>
+                            <button
+                              id="leavePageBtn"
+                              class="btn btn-inverse-success btn-sm"
+                              data-target="leaveSection"
+                            >
+                              <i class="mdi mdi-calendar-check me-2"></i>Leave
+                              Page
+                            </button>
+                          </div>
+                          <p class="form-label">I am on Leave</p>
+                          <div
+                            class="btn-group w-100 d-flex justify-content-center align-content-between column-gap-3"
+                          >
+                            <button
+                              type="submit"
+                              class="btn btn-inverse-success btn-fw"
+                              onclick="leaveToday(event)"
+                            >
+                              Today
+                            </button>
+                            <button
+                              type="submit"
+                              class="btn btn-inverse-success btn-fw"
+                              onclick="leaveTomorrow(event)"
+                            >
+                              Tomorrow
+                            </button>
+                          </div>
+                          <form>
+                            <div class="row my-3">
+                              <div class="col-md-6 mb-3 mt-2">
+                                <label class="form-label">Leave Type</label>
+                                <select
+                                  id="leaveType"
+                                  class="form-select"
+                                  style="border: 1px solid"
+                                ></select>
+                              </div>
+                              <div class="row">
+                                <div class="col-sm-6 my-2">
+                                  <div class="input-group mb-2">
+                                    <span
+                                      class="input-group-text btn-inverse-success"
+                                      >From</span
+                                    >
+                                    <input
+                                      id="fromDate"
+                                      type="date"
+                                      class="form-control border-1 border-secondary"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 my-2">
+                                  <div class="input-group">
+                                    <input
+                                      id="toDate"
+                                      type="date"
+                                      class="form-control border-1 border-secondary"
+                                    />
+                                    <span
+                                      class="input-group-text btn-inverse-success"
+                                      >To</span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button
+                              type="submit"
+                              class="btn btn-inverse-success"
+                              onclick="sendLeaveRequest(event)"
+                            >
+                              <i class="fa fa-thumbs-o-up me-3"></i>Send Request
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Announcements Section -->
+                  <div class="row" id="announcements">
+                    <div class="col-12 grid-margin stretch-card">
+                      <div class="card">
+                        <div class="card-body">
+                          <h4 class="card-title fw-medium mb-4">
                             Announcements
-                          </button>
+                          </h4>
+                          <div class="list-group">
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Annual Team Building Event</h5>
+                                <small class="text-muted">2 days ago</small>
+                              </div>
+                              <p class="mb-1">
+                                Join us for our upcoming team building retreat
+                                on April 15th-16th. Details to follow soon!
+                              </p>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Performance Review Period</h5>
+                                <small class="text-muted">1 week ago</small>
+                              </div>
+                              <p class="mb-1">
+                                Annual performance reviews will begin next
+                                month. Please prepare your self-assessment
+                                documents.
+                              </p>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">New Benefits Program</h5>
+                                <small class="text-muted">2 weeks ago</small>
+                              </div>
+                              <p class="mb-1">
+                                We're excited to announce expanded health and
+                                wellness benefits for all employees.
+                              </p>
+                            </a>
+                          </div>
+                          <div class="mt-3 text-center">
+                            <button class="btn btn-inverse-success">
+                              <i class="mdi mdi-bell-ring me-2"></i>View All
+                              Announcements
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </section>
+
+            <!-- Attendance -->
+            <section id="attendanceSection" style="display: none">
+              <div class="page-header">
+                <h3 class="page-title">
+                  <span
+                    class="page-title-icon bg-gradient-primary text-white me-2"
+                  >
+                    <i class="mdi mdi-format-list-bulleted"></i>
+                  </span>
+                  Attendance
+                </h3>
+              </div>
+
+              <!-- Attendance content -->
+              <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <h4 class="card-title">Attendance Records</h4>
+                        <div>
+                          <button
+                            id="todayBtn"
+                            class="btn btn-inverse-primary me-2"
+                          >
+                            <i class="mdi mdi-calendar-today me-1"></i>Today
+                          </button>
+                          <button
+                            id="weekBtn"
+                            class="btn btn-inverse-primary me-2"
+                          >
+                            <i class="mdi mdi-calendar-week me-1"></i>This Week
+                          </button>
+                          <button id="monthBtn" class="btn btn-inverse-primary">
+                            <i class="mdi mdi-calendar-month me-1"></i>This
+                            Month
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Date Range Selector -->
+                      <div class="row mb-4">
+                        <div class="col-md-5">
+                          <div class="input-group">
+                            <span class="input-group-text"
+                              ><i class="fa fa-calendar"></i
+                            ></span>
+                            <input
+                              type="date"
+                              id="startDate"
+                              class="form-control"
+                            />
+                            <span class="input-group-text">to</span>
+                            <input
+                              type="date"
+                              id="endDate"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <button
+                            id="applyDateRange"
+                            class="btn btn-gradient-primary"
+                          >
+                            <i class="mdi mdi-filter me-1"></i>Apply Filter
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="input-group">
+                            <input
+                              type="text"
+                              class="form-control"
+                              placeholder="Search..."
+                            />
+                            <button
+                              class="btn btn-outline-secondary"
+                              type="button"
+                            >
+                              <i class="mdi mdi-magnify"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Attendance Summary -->
+                      <div class="row mb-4">
+                        <div class="col-md-3">
+                          <div class="card bg-success text-white">
+                            <div class="card-body p-3">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div>
+                                  <h6 class="mb-0">Present Days</h6>
+                                  <h3 class="mt-2 mb-0" id="presentDays"></h3>
+                                </div>
+                                <i class="mdi mdi-check-circle mdi-36px"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-danger text-white">
+                            <div class="card-body p-3">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div>
+                                  <h6 class="mb-0">Absent Days</h6>
+                                  <h3 class="mt-2 mb-0" id="absentDays"></h3>
+                                </div>
+                                <i class="mdi mdi-close-circle mdi-36px"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-info text-white">
+                            <div class="card-body p-3">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div>
+                                  <h6 class="mb-0">Total Hours</h6>
+                                  <h3 class="mt-2 mb-0" id="totalHours"></h3>
+                                </div>
+                                <i class="mdi mdi-clock-outline mdi-36px"></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="card bg-warning text-white">
+                            <div class="card-body p-3">
+                              <div
+                                class="d-flex justify-content-between align-items-center"
+                              >
+                                <div>
+                                  <h6 class="mb-0">Avg. Working Hours</h6>
+                                  <h3 class="mt-2 mb-0" id="avgHours"></h3>
+                                </div>
+                                <i
+                                  class="mdi mdi-chart-timeline-variant mdi-36px"
+                                ></i>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Attendance Table -->
+                      <div class="table-responsive">
+                        <table class="table table-hover" id="attendanceTable">
+                          <thead>
+                            <tr>
+                              <th>Date</th>
+                              <th>Day</th>
+                              <th>Status</th>
+                              <th>Check-in</th>
+                              <th>Check-out</th>
+                            </tr>
+                          </thead>
+                          <tbody id="attendanceSectionTable">
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Leave -->
+            <section id="leaveSection" style="display: none">
+              <div class="page-header">
+                <h3 class="page-title">
+                  <span
+                    class="page-title-icon bg-gradient-primary text-white me-2"
+                  >
+                    <i class="mdi mdi-calendar-clock"></i>
+                  </span>
+                  Apply Leave
+                </h3>
+              </div>
+
+              <div class="row">
+                <!-- Leave Summary Card -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-danger card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Annual Leave
+                        <i
+                          class="mdi mdi-calendar-check mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">12 Days</h2>
+                      <h6 class="card-text">Total Entitlement</h6>
+                    </div>
+                  </div>
+                </div>
+                <!-- Leave Used Card -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Leave Used
+                        <i
+                          class="mdi mdi-calendar-remove mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">4 Days</h2>
+                      <h6 class="card-text">Used This Year</h6>
+                    </div>
+                  </div>
+                </div>
+                <!-- Leave Balance Card -->
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-success card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Leave Balance
+                        <i
+                          class="mdi mdi-calendar-blank mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">8 Days</h2>
+                      <h6 class="card-text">Available Leaves</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Left Column -->
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Apply for Leave</h4>
+                      <p class="card-description">
+                        Fill in the details to submit your leave request
+                      </p>
+                      <form class="forms-sample">
+                        <div class="form-group">
+                          <label for="leaveType">Leave Type</label>
+                          <select
+                            class="form-select border-1 border-secondary"
+                            id="leaveType"
+                          >
+                            <option>Casual Leave</option>
+                            <option>Sick Leave</option>
+                            <option>Earned Leave</option>
+                            <option>Maternity Leave</option>
+                            <option>Paternity Leave</option>
+                            <option>Bereavement Leave</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label>Date Range</label>
+                          <div class="row">
+                            <div class="col-sm-6">
+                              <div class="input-group mb-2">
+                                <span
+                                  class="input-group-text btn-inverse-success"
+                                  >From</span
+                                >
+                                <input
+                                  type="date"
+                                  class="form-control border-1 border-secondary"
+                                />
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="input-group">
+                                <input
+                                  type="date"
+                                  class="form-control border-1 border-secondary"
+                                />
+                                <span
+                                  class="input-group-text btn-inverse-success"
+                                  >To</span
+                                >
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="leaveReason">Reason for Leave</label>
+                          <textarea
+                            class="form-control border-1 border-secondary"
+                            id="leaveReason"
+                            rows="4"
+                            placeholder="Please provide details about your leave request..."
+                          ></textarea>
+                        </div>
+                        <button
+                          type="submit"
+                          class="btn btn-gradient-primary me-2"
+                        >
+                          <i class="mdi mdi-check-circle me-2"></i>Submit
+                          Request
+                        </button>
+                        <button class="btn btn-light">Cancel</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="col-md-6 grid-margin">
+                  <!-- Leave Balance Details -->
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      <h4 class="card-title">Leave Balance Details</h4>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Leave Type</th>
+                              <th>Total</th>
+                              <th>Used</th>
+                              <th>Balance</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Casual Leave</td>
+                              <td>5</td>
+                              <td>2</td>
+                              <td>
+                                <span class="badge badge-gradient-success"
+                                  >3</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Sick Leave</td>
+                              <td>5</td>
+                              <td>1</td>
+                              <td>
+                                <span class="badge badge-gradient-success"
+                                  >4</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Earned Leave</td>
+                              <td>2</td>
+                              <td>1</td>
+                              <td>
+                                <span class="badge badge-gradient-success"
+                                  >1</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td><strong>Total</strong></td>
+                              <td><strong>12</strong></td>
+                              <td><strong>4</strong></td>
+                              <td>
+                                <strong
+                                  ><span class="badge badge-gradient-info"
+                                    >8</span
+                                  ></strong
+                                >
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Pending Leave Requests -->
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Leave Request History</h4>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>Date Applied</th>
+                              <th>Leave Type</th>
+                              <th>From</th>
+                              <th>To</th>
+                              <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Mar 15, 2024</td>
+                              <td>Casual Leave</td>
+                              <td>Mar 18, 2024</td>
+                              <td>Mar 19, 2024</td>
+                              <td>
+                                <span class="badge badge-gradient-success"
+                                  >Approved</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Feb 20, 2024</td>
+                              <td>Sick Leave</td>
+                              <td>Feb 21, 2024</td>
+                              <td>Feb 21, 2024</td>
+                              <td>
+                                <span class="badge badge-gradient-success"
+                                  >Approved</span
+                                >
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>Mar 25, 2024</td>
+                              <td>Casual Leave</td>
+                              <td>Apr 5, 2024</td>
+                              <td>Apr 6, 2024</td>
+                              <td>
+                                <span class="badge badge-gradient-warning"
+                                  >Pending</span
+                                >
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="mt-3 text-center">
+                        <button class="btn btn-inverse-success">
+                          <i class="mdi mdi-history me-2"></i>View Full History
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Leave Policy Section -->
+              <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      ass
+                      <h4 class="card-title">Leave Policy Highlights</h4>
+                      <div class="row mt-3">
+                        <div class="col-md-6">
+                          <div class="d-flex align-items-start mb-4">
+                            <i
+                              class="mdi mdi-information-outline text-primary me-3"
+                              style="font-size: 24px"
+                            ></i>
+                            <div>
+                              <h5 class="mt-0">Application Timeline</h5>
+                              <p class="text-muted">
+                                Leave requests must be submitted at least 3
+                                working days in advance for planned leaves.
+                                Emergency leaves can be applied for on the same
+                                day but require manager approval.
+                              </p>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start">
+                            <i
+                              class="mdi mdi-alert-circle-outline text-warning me-3"
+                              style="font-size: 24px"
+                            ></i>
+                            <div>
+                              <h5 class="mt-0">Leave Cancellation</h5>
+                              <p class="text-muted">
+                                Approved leaves can be cancelled up to 24 hours
+                                before the leave date. Cancelled leaves will be
+                                credited back to your leave balance.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="d-flex align-items-start mb-4">
+                            <i
+                              class="mdi mdi-file-document-outline text-success me-3"
+                              style="font-size: 24px"
+                            ></i>
+                            <div>
+                              <h5 class="mt-0">Supporting Documents</h5>
+                              <p class="text-muted">
+                                Medical certificates are required for sick
+                                leaves exceeding 2 consecutive days. All
+                                documents must be submitted within 3 days of
+                                returning to work.
+                              </p>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start">
+                            <i
+                              class="mdi mdi-calendar-clock text-info me-3"
+                              style="font-size: 24px"
+                            ></i>
+                            <div>
+                              <h5 class="mt-0">Leave Accrual</h5>
+                              <p class="text-muted">
+                                Annual leaves accrue monthly and can be carried
+                                forward to the next year (max 5 days). Unused
+                                sick leaves expire at the end of the calendar
+                                year.
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-center mt-4">
+                        <button class="btn btn-gradient-primary">
+                          <i class="mdi mdi-file-pdf-box me-2"></i>Download
+                          Complete Leave Policy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Company Holidays -->
+              <div class="row">
+                <div class="col-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <h4 class="card-title mb-0">Company Holidays (2024)</h4>
+                        <button class="btn btn-inverse-primary btn-sm">
+                          <i class="mdi mdi-calendar me-1"></i>Add to Calendar
+                        </button>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">1</h4>
+                                  <small class="text-muted">Jan</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">New Year's Day</h6>
+                                  <small class="text-muted">Monday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">15</h4>
+                                  <small class="text-muted">Apr</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">Spring Festival</h6>
+                                  <small class="text-muted">Monday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">27</h4>
+                                  <small class="text-muted">May</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">Memorial Day</h6>
+                                  <small class="text-muted">Monday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">4</h4>
+                                  <small class="text-muted">Jul</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">Independence Day</h6>
+                                  <small class="text-muted">Thursday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">2</h4>
+                                  <small class="text-muted">Sep</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">Labor Day</h6>
+                                  <small class="text-muted">Monday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <div class="card border-0 shadow-sm">
+                            <div class="card-body p-3">
+                              <div class="d-flex align-items-center">
+                                <div class="holiday-date me-3 text-center">
+                                  <h4 class="text-danger mb-0">25</h4>
+                                  <small class="text-muted">Dec</small>
+                                </div>
+                                <div>
+                                  <h6 class="mb-1">Christmas Day</h6>
+                                  <small class="text-muted">Wednesday</small>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- Alert Toast -->
+          <div
+            id="alertContainer"
+            class="position-fixed bottom-0 end-0 my-2 mx-3 z-3"
+          >
+            <div id="alertTemplate">
+              <div class="alert alert-dismissible fade show" role="alert">
+                <span class="alert-message"></span>
               </div>
             </div>
           </div>
@@ -917,6 +1557,7 @@
     <!-- plugins:js -->
     <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/assets/vendors/chart.js/chart.umd.js"></script>
@@ -932,6 +1573,53 @@
     <!-- Custom js for this page -->
     <script src="/assets/js/dashboard.js"></script>
     <script src="/js/user-dashboard.js"></script>
+    <script src="/js/attendance.js"></script>
+    <script src="/js/leave.js"></script>
     <!-- End custom js for this page -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+  function showSectionById(id) {
+    // Hide all sections
+    document.querySelectorAll("section").forEach((section) => {
+      section.style.display = "none";
+    });
+
+    // Show the target section by ID
+    let targetSection = document.getElementById(id);
+    if (targetSection) {
+      targetSection.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      console.error("Section not found:", id);
+    }
+  }
+
+  // Get the hash from the URL and remove the '#' symbol
+  const initialHash = window.location.hash.substring(1);
+
+  // If there's a hash, show the corresponding section, otherwise show the default section
+  if (initialHash) {
+    showSectionById(initialHash);
+  } else {
+    showSectionById("dashboardSection"); // Default section
+  }
+
+  // Handle navigation links
+  document.querySelectorAll(".nav-link, #leavePageBtn").forEach((link) => {
+    link.addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent default link behavior
+
+      let targetId = this.getAttribute("data-target");
+      
+      // Set the hash in the URL and trigger the section change
+      window.location.hash = targetId;
+
+      showSectionById(targetId);
+    });
+  });
+});
+
+    </script>
+    
   </body>
 </html>

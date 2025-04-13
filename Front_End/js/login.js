@@ -21,7 +21,7 @@ $(document).ready(function(e) {
                 if (response.data.roles == "ADMIN") {
                     window.location.href = "/pages/admin-dashboard.html";
                 }else if (response.data.roles == "EMPLOYEE") {
-                    window.location.href = "user-dashboard.html";
+                    window.location.href = "/pages/user-dashboard.html#dashboardSection";
                 }
             },
             error: function(xhr, status, error) {
