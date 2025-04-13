@@ -1,6 +1,8 @@
 package lk.ijse.worksphere.service;
 
-import lk.ijse.worksphere.dto.LeaveRequestDTO;
+import lk.ijse.worksphere.dto.LeaveDTO;
+
+import java.util.List;
 
 /**
  * Author: Chanuka Prabodha
@@ -8,5 +10,12 @@ import lk.ijse.worksphere.dto.LeaveRequestDTO;
  * Time: 02:51 PM
  */
 public interface LeaveService {
-    void saveLeave(LeaveRequestDTO leaveRequestDTO);
+
+    void applyLeave(String token, LeaveDTO leaveDTO);
+
+    void approveLeave(String leaveId);
+
+    void rejectLeave(String token, String leaveId);
+
+    List<String> getLeaveTypes();
 }
