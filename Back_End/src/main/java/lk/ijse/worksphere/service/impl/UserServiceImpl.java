@@ -50,7 +50,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(user.getRoles().toString()));
-        System.out.println(authorities);
         return authorities;
     }
 
@@ -68,7 +67,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public int saveUser(UserDTO userDTO) {
         String generatedId;
         do {
-            generatedId = IdGenerator.generateId("USR-");
+            generatedId = IdGenerator.generateId("USR");
         } while (userRepo.existsById(generatedId));
         userDTO.setId(generatedId);
         if (userRepo.existsByEmail(userDTO.getEmail())) {
