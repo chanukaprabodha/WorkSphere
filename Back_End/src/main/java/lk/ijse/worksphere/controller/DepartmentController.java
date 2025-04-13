@@ -7,6 +7,7 @@ import lk.ijse.worksphere.util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,6 +24,7 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(path = "save")
     public ResponseEntity<ResponseDTO> saveDepartment(@RequestBody DepartmentDTO departmentDTO) {
         departmentService.saveDepartment(departmentDTO);

@@ -27,7 +27,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void saveDepartment(DepartmentDTO departmentDTO) {
         String generatedId ;
         do {
-            generatedId = IdGenerator.generateId("DP-");
+            generatedId = IdGenerator.generateId("DEP");
         } while (departmentRepo.existsById(generatedId));
         departmentDTO.setId(generatedId);
         try {
