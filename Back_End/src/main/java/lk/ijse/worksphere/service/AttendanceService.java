@@ -10,4 +10,6 @@ public interface AttendanceService {
     List<AttendanceDTO> getLastTwoAttendanceRecords(String employeeId);
 
     List<AttendanceDTO> getAttendanceByDateRange(String token, String fromDate, String toDate);
+
+    List<AttendanceDTO> getMonthlyAttendance(String token);
 }

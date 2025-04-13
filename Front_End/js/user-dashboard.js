@@ -1,7 +1,36 @@
 $(document).ready(function () {
   getEmployeeDetails();
   loadUpcomingBirthdays();
+  gethMonthlyAttendance();
 });
+
+function gethMonthlyAttendance() { 
+  const token = localStorage.getItem("jwt_token");
+
+  $.ajax({
+    url: "http://localhost:8080/api/v1/attendance/getMonthlyAttendance",
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    success: function (res) {
+      const records = res.data;
+      const today = moment();
+      const totalDays = today.date(); // e.g., 30 on 30th
+
+      let presentCount = 0;
+      $.each(records, function (index, record) {
+        if (record.status === "PRESENT") presentCount++;
+      });
+
+      $("#totalAttendance").text(`${presentCount}/${totalDays} Days`);
+      $("#attendanceSummaryText").text(`Present this Month`);
+    },
+    error: function (xhr, status, error) {
+      console.error("Failed to fetch monthly attendance:", error);
+    },
+  });
+}
 
 function getEmployeeDetails() {
   var token = localStorage.getItem("jwt_token");
@@ -13,16 +42,12 @@ function getEmployeeDetails() {
       contentType: "application/json",
     },
     success: function (response) {
-      if (response.code === 200) {
-        console.log("Employee Details:", response.data);
         $("#employeeName").text(
           response.data.firstName + " " + response.data.lastName
         );
         $("#employeePosition").text(response.data.position);
         $("#leaveBalance").text(response.data.leaveBalance);
-      } else {
-        console.error("Error:", response.message);
-      }
+      
     },
     error: function (xhr, status, error) {
       console.log("Error fetching employee details:", error);

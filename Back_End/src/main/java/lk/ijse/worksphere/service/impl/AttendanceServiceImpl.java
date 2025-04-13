@@ -109,6 +109,21 @@ public class AttendanceServiceImpl implements AttendanceService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<AttendanceDTO> getMonthlyAttendance(String token) {
+
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+        LocalDate firstDayOfMonth = LocalDate.now().withDayOfMonth(1);
+        LocalDate lastDayOfMonth = LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
+        List<Attendance> records = attendanceRepo.findByEmployeeIdAndDateBetween(employeeIdFromToken, firstDayOfMonth, lastDayOfMonth);
+        if (records.isEmpty()) {
+            throw new RuntimeException("No attendance records found for the current month.");
+        }
+        return records.stream()
+                .map(record -> modelMapper.map(record, AttendanceDTO.class))
+                .collect(Collectors.toList());
+    }
+
     @Scheduled(cron = "0 0 18 * * ?") // Every day at 6 PM
     public void evaluateDailyAttendance() {
         LocalDate today = LocalDate.now();

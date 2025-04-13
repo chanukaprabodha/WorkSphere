@@ -90,4 +90,12 @@ public class AttendanceController {
                 records));
     }
 
+    @GetMapping(path = "getMonthlyAttendance")
+    public ResponseEntity<ResponseDTO> getMonthlyAttendance(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(new ResponseDTO(
+                VarList.OK,
+                "Success",
+                attendanceService.getMonthlyAttendance(token)));
+    }
+
 }
