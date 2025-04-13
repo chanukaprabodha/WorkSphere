@@ -1,6 +1,7 @@
 package lk.ijse.worksphere.service.impl;
 
 import lk.ijse.worksphere.dto.AttendanceDTO;
+import lk.ijse.worksphere.dto.PublicHolidayDTO;
 import lk.ijse.worksphere.entity.Attendance;
 import lk.ijse.worksphere.entity.Employee;
 import lk.ijse.worksphere.entity.Leave;
@@ -12,13 +13,14 @@ import lk.ijse.worksphere.util.IdGenerator;
 import lk.ijse.worksphere.util.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.sql.Time;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -124,9 +126,39 @@ public class AttendanceServiceImpl implements AttendanceService {
                 .collect(Collectors.toList());
     }
 
-    @Scheduled(cron = "0 0 18 * * ?") // Every day at 6 PM
+    public boolean isTodayPublicHoliday() {
+        RestTemplate restTemplate = new RestTemplate();
+        int year = Year.now().getValue();
+        String countryCode = "LK";
+        String url = "https://date.nager.at/api/v3/PublicHolidays/" + year + "/" + countryCode;
+
+        try {
+            ResponseEntity<PublicHolidayDTO[]> response = restTemplate.getForEntity(url, PublicHolidayDTO[].class);
+
+            if (response.getStatusCode() == HttpStatus.OK && response.getBody() != null) {
+                LocalDate today = LocalDate.now();
+                for (PublicHolidayDTO holiday : response.getBody()) {
+                    if (holiday.getDate().isEqual(today)) {
+                        return true; // 🎉 Today is a public holiday
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle failure gracefully
+        }
+
+        return false; // Not a public holiday
+    }
+
+    @Scheduled(cron = "0 0 18 * * ?", zone = "Asia/Colombo") // Every day at 6 PM
     public void evaluateDailyAttendance() {
         LocalDate today = LocalDate.now();
+
+        // Skip if it's Sunday
+        if (today.getDayOfWeek() == DayOfWeek.SUNDAY || isTodayPublicHoliday()) {
+            return;
+        }
+
         List<Employee> allEmployees = employeeRepo.findAll();
 
         for (Employee employee : allEmployees) {
@@ -135,7 +167,8 @@ public class AttendanceServiceImpl implements AttendanceService {
                 Attendance.Status status = Attendance.Status.ABSENT;
 
                 Optional<Leave> leaveOpt = leaveRepo.findByEmployeeIdAndDate(employee.getId(), today);
-                if (leaveOpt.isPresent() && leaveOpt.get().getStatus() == Leave.Status.APPROVED || leaveOpt.get().getStatus() == Leave.Status.PENDING) {
+                if (leaveOpt.isPresent() &&
+                        (leaveOpt.get().getStatus() == Leave.Status.APPROVED || leaveOpt.get().getStatus() == Leave.Status.PENDING)) {
                     status = Attendance.Status.LEAVE;
                 }
 
