@@ -147,4 +147,23 @@ public class LeaveServiceImpl implements LeaveService {
                 .map(Enum::name)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<LeaveDTO> getRecentLeave(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+        return leaveRepo.findRecentLeaves(employeeIdFromToken)
+                .stream()
+                .limit(3)
+                .map(leave -> modelMapper.map(leave, LeaveDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<LeaveDTO> getLeaveHistory(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+        return leaveRepo.findByEmployeeId(employeeIdFromToken)
+                .stream()
+                .map(leave -> modelMapper.map(leave, LeaveDTO.class))
+                .collect(Collectors.toList());
+    }
 }

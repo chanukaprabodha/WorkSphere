@@ -1,5 +1,6 @@
 package lk.ijse.worksphere.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,7 @@ public class Leave {
     @Enumerated(EnumType.STRING)
     private Type leaveType;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @CreationTimestamp
     private LocalDateTime createdAt;
 

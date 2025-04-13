@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -28,4 +30,13 @@ public interface LeaveRepo extends JpaRepository<Leave, String> {
             "AND l.status = :status")
     int sumLeaveDaysByEmployeeIdAndStatus(@Param("empId") String empId, @Param("status") String status);
 
+    List<Leave> findAllByEmployeeId(String employeeIdFromToken);
+
+    @Query("SELECT l " +
+            "FROM Leave l " +
+            "WHERE l.employee.id = :empId " +
+            "ORDER BY l.createdAt DESC")
+    List<Leave> findRecentLeaves(@Param("empId") String empId);
+
+    List<Leave> findByEmployeeId(String employeeIdFromToken);
 }

@@ -5,9 +5,7 @@ import lk.ijse.worksphere.dto.ResponseDTO;
 import lk.ijse.worksphere.service.LeaveService;
 import lk.ijse.worksphere.util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -58,5 +56,21 @@ public class LeaveController {
                 VarList.OK,
                 "Leave types retrieved successfully",
                 leaveService.getLeaveTypes()));
+    }
+
+    @GetMapping(path = "recentLeaves")
+    public ResponseEntity<ResponseDTO> getRecentLeave(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(new ResponseDTO(
+                VarList.OK,
+                "Leave history retrieved successfully",
+                leaveService.getRecentLeave(token)));
+    }
+
+    @GetMapping(path = "history")
+    public ResponseEntity<ResponseDTO> getLeaveHistory(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(new ResponseDTO(
+                VarList.OK,
+                "Leave history retrieved successfully",
+                leaveService.getLeaveHistory(token)));
     }
 }

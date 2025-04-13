@@ -19,4 +19,8 @@ public interface LeaveService {
     void rejectLeave(String token, String leaveId);
 
     List<String> getLeaveTypes();
+
+    List<LeaveDTO> getRecentLeave(String token);
+
+    List<LeaveDTO> getLeaveHistory(String token);
 }
