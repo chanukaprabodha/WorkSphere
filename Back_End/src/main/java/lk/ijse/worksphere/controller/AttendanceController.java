@@ -25,16 +25,15 @@ public class AttendanceController {
     private EmployeeService employeeService;
 
     @Autowired
-    private AttendanceServiceImpl attendanceService;
+    private AttendanceService attendanceService;
 
     @Autowired
     JwtUtil jwtUtil;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("clockIn")
     public ResponseEntity<ResponseDTO>clockIn(@RequestHeader("Authorization") String token) {
-        String usernameFromToken = jwtUtil.getUsernameFromToken(token.substring(7));
-        EmployeeDTO detailsFromLoggedInUser = employeeService.getDetailsFromLoggedInUser(usernameFromToken);
-        String employeeIdFromToken = detailsFromLoggedInUser.getId();
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
 
         if (employeeIdFromToken == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDTO(
@@ -52,11 +51,11 @@ public class AttendanceController {
                 null));
     }
 
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("clockOut")
     public ResponseEntity<ResponseDTO> clockOut(@RequestHeader("Authorization") String token) {
-        String usernameFromToken = jwtUtil.getUsernameFromToken(token.substring(7));
-        EmployeeDTO detailsFromLoggedInUser = employeeService.getDetailsFromLoggedInUser(usernameFromToken);
-        String employeeIdFromToken = detailsFromLoggedInUser.getId();
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
         attendanceService.clockOut(employeeIdFromToken);
         return ResponseEntity.ok(new ResponseDTO(
                 VarList.OK,
@@ -64,6 +63,8 @@ public class AttendanceController {
                 null));
     }
 
+
+    @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("lastTwoRecords")
     public ResponseEntity<ResponseDTO> getLastTwoAttendanceRecords(@RequestHeader("Authorization") String token) {
         String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
@@ -73,4 +74,20 @@ public class AttendanceController {
                 "Last two attendance records fetched successfully",
                 attendanceRecords));
     }
+
+    @GetMapping("getAttendanceByRange")
+    public ResponseEntity<ResponseDTO> getAttendanceByDateRange(
+            @RequestParam String fromDate,
+            @RequestParam String toDate,
+            @RequestHeader("Authorization") String token) {
+
+        System.out.println("From Date: " + fromDate + ", To Date: " + toDate + ", Token: " + token);
+        List<AttendanceDTO> records = attendanceService.getAttendanceByDateRange(token, fromDate, toDate);
+
+        return ResponseEntity.ok(new ResponseDTO(
+                VarList.OK,
+                "Success",
+                records));
+    }
+
 }
