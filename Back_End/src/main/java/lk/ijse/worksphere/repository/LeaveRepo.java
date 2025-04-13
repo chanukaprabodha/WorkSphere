@@ -21,4 +21,11 @@ public interface LeaveRepo extends JpaRepository<Leave, String> {
             "BETWEEN l.startDate " +
             "AND l.endDate")
     Optional<Leave> findByEmployeeIdAndDate(@Param("empId") String empId, @Param("today") LocalDate today);
+
+    @Query("SELECT COALESCE(SUM(l.days), 0) " +
+            "FROM Leave l " +
+            "WHERE l.employee = :empId " +
+            "AND l.status = :status")
+    int sumLeaveDaysByEmployeeIdAndStatus(@Param("empId") String empId, @Param("status") String status);
+
 }
