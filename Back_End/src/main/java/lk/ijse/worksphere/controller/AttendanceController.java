@@ -33,30 +33,20 @@ public class AttendanceController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("clockIn")
     public ResponseEntity<ResponseDTO>clockIn(@RequestHeader("Authorization") String token) {
-        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
 
-        if (employeeIdFromToken == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ResponseDTO(
-                    VarList.Unauthorized,
-                    "Invalid or expired token",
-                    null
-            ));
+        try {
+            attendanceService.clockIn(token);
+            return ResponseEntity.ok(new ResponseDTO(VarList.OK,"Clocked in successfully", true));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(new ResponseDTO(VarList.Conflict, e.getMessage(), false));
         }
-
-        System.out.println("Employee ID from token: " + employeeIdFromToken);
-        attendanceService.clockIn(employeeIdFromToken);
-        return ResponseEntity.ok(new ResponseDTO(
-                VarList.OK,
-                "Clocked in successfully",
-                null));
     }
 
 
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @PostMapping("clockOut")
     public ResponseEntity<ResponseDTO> clockOut(@RequestHeader("Authorization") String token) {
-        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
-        attendanceService.clockOut(employeeIdFromToken);
+        attendanceService.clockOut(token);
         return ResponseEntity.ok(new ResponseDTO(
                 VarList.OK,
                 "Clocked out successfully",
@@ -67,8 +57,7 @@ public class AttendanceController {
     @PreAuthorize("hasAnyAuthority('ADMIN','EMPLOYEE')")
     @GetMapping("lastTwoRecords")
     public ResponseEntity<ResponseDTO> getLastTwoAttendanceRecords(@RequestHeader("Authorization") String token) {
-        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
-        List<AttendanceDTO> attendanceRecords = attendanceService.getLastTwoAttendanceRecords(employeeIdFromToken);
+        List<AttendanceDTO> attendanceRecords = attendanceService.getLastTwoAttendanceRecords(token);
         return ResponseEntity.ok(new ResponseDTO(
                 VarList.OK,
                 "Last two attendance records fetched successfully",
@@ -96,6 +85,16 @@ public class AttendanceController {
                 VarList.OK,
                 "Success",
                 attendanceService.getMonthlyAttendance(token)));
+    }
+
+    @GetMapping(path = "status")
+    public ResponseEntity<ResponseDTO> getAttendanceStatus(@RequestHeader("Authorization") String token) {
+        String attendanceStatus = attendanceService.getAttendanceStatus(token);
+        System.out.println("Attendance status :- " + attendanceStatus);
+        return ResponseEntity.ok(new ResponseDTO(
+                VarList.OK,
+                "Success",
+                attendanceStatus));
     }
 
 }

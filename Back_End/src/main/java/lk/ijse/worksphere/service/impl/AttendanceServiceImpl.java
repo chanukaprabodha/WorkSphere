@@ -45,7 +45,21 @@ public class AttendanceServiceImpl implements AttendanceService {
 
 
     @Override
-    public void clockIn(String employeeIdFromToken) {
+    public void clockIn(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+
+        // Check if already clocked in and out today
+        Optional<Attendance> completedToday = attendanceRepo.findCompletedAttendanceToday(employeeIdFromToken);
+        if (completedToday.isPresent()) {
+            throw new RuntimeException("You have already clocked in and out for today.");
+        }
+
+        // Check if already clocked in but not clocked out yet
+        Optional<Attendance> ongoing = attendanceRepo.findTopByEmployeeIdAndDateOrderByInTimeDesc(employeeIdFromToken, LocalDate.now());
+        if (ongoing.isPresent() && ongoing.get().getOutTime() == null) {
+            throw new RuntimeException("Already clocked in. Please clock out before trying again.");
+        }
+
         String generatedId;
         do {
             generatedId = IdGenerator.generateId("ATT");
@@ -64,8 +78,13 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public void clockOut(String employeeIdFromToken) {
+    public void clockOut(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
         Optional<Attendance> optionalAttendance = attendanceRepo.findTopByEmployeeIdOrderByDateDescInTimeDesc(employeeIdFromToken);
+
+        if (optionalAttendance.isEmpty() || optionalAttendance.get().getOutTime() != null) {
+            throw new RuntimeException("You must clock in before clocking out.");
+        }
 
         if (optionalAttendance.isPresent()) {
             Attendance attendance = optionalAttendance.get();
@@ -90,8 +109,9 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<AttendanceDTO> getLastTwoAttendanceRecords(String employeeId) {
-        List<Attendance> lastTwoRecords = attendanceRepo.findTop2ByEmployeeIdOrderByDateDescInTimeDesc(employeeId);
+    public List<AttendanceDTO> getLastTwoAttendanceRecords(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+        List<Attendance> lastTwoRecords = attendanceRepo.findTop2ByEmployeeIdOrderByDateDescInTimeDesc(employeeIdFromToken);
         return lastTwoRecords.stream()
                 .map(attendance -> modelMapper.map(attendance, AttendanceDTO.class))
                 .toList();
@@ -124,6 +144,26 @@ public class AttendanceServiceImpl implements AttendanceService {
         return records.stream()
                 .map(record -> modelMapper.map(record, AttendanceDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getAttendanceStatus(String token) {
+        String employeeIdFromToken = jwtUtil.getEmployeeIdFromToken(token.substring(7));
+        List<Attendance> todayClockIns = attendanceRepo.findAllClockInTodayWithoutOut(employeeIdFromToken);
+
+        System.out.println("Today clock-ins: " + todayClockIns);
+
+        if (todayClockIns.isEmpty()) {
+            return "clockIn"; // No open clock-in today → Show Clock In
+        }
+
+        Attendance latest = todayClockIns.get(0); // Already ordered by inTime DESC
+        if (latest.getInTime() != null && latest.getOutTime() == null) {
+            return "clockOut"; // Show Clock Out button
+        }
+
+        return "clockIn"; // Fallback
+
     }
 
     public boolean isTodayPublicHoliday() {
