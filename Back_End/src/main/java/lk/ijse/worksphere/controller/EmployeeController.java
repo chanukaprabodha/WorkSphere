@@ -119,4 +119,14 @@ public class EmployeeController {
                         employeeService.allBirthdays(token)));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping(path = "getTotalEmployeeCount")
+    public ResponseEntity<ResponseDTO> getEmployeeCount(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(
+                        VarList.OK,
+                        "Employee count fetched successfully",
+                        employeeService.getEmployeeCount(token)));
+    }
+
 }

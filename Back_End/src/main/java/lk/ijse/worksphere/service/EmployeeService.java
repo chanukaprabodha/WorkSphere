@@ -26,4 +26,6 @@ public interface EmployeeService {
     List<EmployeeDTO> upcomingBirthday(String usernameFromToken);
 
     List<EmployeeDTO> allBirthdays(String usernameFromToken);
+
+    int getEmployeeCount(String token);
 }

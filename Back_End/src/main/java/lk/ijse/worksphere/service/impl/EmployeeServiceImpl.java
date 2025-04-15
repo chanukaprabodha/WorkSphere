@@ -141,4 +141,11 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public int getEmployeeCount(String token) {
+        int size = employeeRepo.findAll().size();
+        System.out.println("Employee count: " + size);
+        return size;
+    }
+
 }
