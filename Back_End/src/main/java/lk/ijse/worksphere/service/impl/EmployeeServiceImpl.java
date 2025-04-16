@@ -1,7 +1,9 @@
 package lk.ijse.worksphere.service.impl;
 
 import lk.ijse.worksphere.dto.EmployeeDTO;
+import lk.ijse.worksphere.entity.Attendance;
 import lk.ijse.worksphere.entity.Employee;
+import lk.ijse.worksphere.entity.Leave;
 import lk.ijse.worksphere.repository.EmployeeRepo;
 import lk.ijse.worksphere.service.EmployeeService;
 import lk.ijse.worksphere.util.IdGenerator;
@@ -29,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     private ModelMapper modelMapper;
 
     @Override
-    public void saveEmployee(EmployeeDTO employeeDTO) {
+    public void saveEmployee(EmployeeDTO employeeDTO, String filePath) {
         String generatedId;
         do {
             generatedId = IdGenerator.generateId("EMP");
@@ -48,6 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         );
         try {
             Employee employee = modelMapper.map(employeeDTO, Employee.class);
+            employee.setProfilePicture(filePath);
             employeeRepo.save(employee);
         } catch (Exception e) {
             throw new RuntimeException("Error while saving employee: " + e.getMessage(), e);
@@ -143,9 +146,37 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public int getEmployeeCount(String token) {
-        int size = employeeRepo.findAll().size();
-        System.out.println("Employee count: " + size);
-        return size;
+        return employeeRepo.findAll().size();
+    }
+
+    @Override
+    public List<EmployeeDTO> searchEmployees(String keyword) {
+        List<Employee> employeeList = employeeRepo.searchByNameOrId(keyword.toLowerCase());
+
+        return employeeList.stream()
+                .map(employee -> {
+                    EmployeeDTO dto = modelMapper.map(employee, EmployeeDTO.class);
+                    if (employee.getDepartment() != null) {
+                        dto.setDepartmentId(employee.getDepartment().getName());
+                    }
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EmployeeDTO> getEmployeesWithoutUserAccounts() {
+        List<Employee> employees = employeeRepo.findEmployeesWithoutUserAccounts();
+        return employees.stream()
+                .map(employee -> {
+                    EmployeeDTO dto = modelMapper.map(employee, EmployeeDTO.class);
+                    if (employee.getDepartment() != null) {
+                        dto.setDepartmentId(employee.getDepartment().getName());
+                    }
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 }

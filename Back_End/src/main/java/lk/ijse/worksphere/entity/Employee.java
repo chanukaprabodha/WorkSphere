@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Author: Chanuka Prabodha
@@ -41,7 +42,7 @@ public class Employee {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private String position;
-    private BigDecimal salary;
+    private String salary;
     private String profilePicture;
     private int annualLeaves;
     private int casualLeave;
@@ -51,6 +52,12 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private Department department;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Attendance> attendanceList;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Leave> leaveList;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

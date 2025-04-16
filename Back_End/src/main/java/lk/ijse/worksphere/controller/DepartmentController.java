@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * Author: Chanuka Prabodha
  * Date: 2025-03-23
@@ -43,5 +45,16 @@ public class DepartmentController {
                         VarList.Created,
                         "Department updated successfully",
                         departmentDTO));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ResponseDTO> getAllDepartments() {
+        try {
+            List<DepartmentDTO> departments = departmentService.getAllDepartments();
+            return ResponseEntity.ok(new ResponseDTO(VarList.OK, "Success", departments));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new ResponseDTO(VarList.Internal_Server_Error, "Error: " + e.getMessage(), null));
+        }
     }
 }

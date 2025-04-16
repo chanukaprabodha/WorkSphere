@@ -39,4 +39,12 @@ public interface LeaveRepo extends JpaRepository<Leave, String> {
     List<Leave> findRecentLeaves(@Param("empId") String empId);
 
     List<Leave> findByEmployeeId(String employeeIdFromToken);
+
+    @Query("SELECT COUNT(l) " +
+            "FROM Leave l " +
+            "WHERE l.status = 'PENDING'")
+    int countPendingLeaves();
+
+    List<Leave> findByStatus(Leave.Status status);
+
 }

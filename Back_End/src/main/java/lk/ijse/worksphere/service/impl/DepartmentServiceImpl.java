@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Author: Chanuka Prabodha
  * Date: 2025-03-23
@@ -44,5 +46,10 @@ public class DepartmentServiceImpl implements DepartmentService {
             departmentRepo.save(modelMapper.map(departmentDTO, Department.class));
         }
         throw new RuntimeException("Department not found");
+    }
+
+    @Override
+    public List<DepartmentDTO> getAllDepartments() {
+        return modelMapper.map(departmentRepo.findAll(), List.class);
     }
 }

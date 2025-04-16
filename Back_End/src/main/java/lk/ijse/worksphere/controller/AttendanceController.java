@@ -97,4 +97,14 @@ public class AttendanceController {
                 attendanceStatus));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping(path = "getActiveEmployeeCount")
+    public ResponseEntity<ResponseDTO> getActiveEmployeeCount(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseDTO(
+                        VarList.OK,
+                        "Active employee count fetched successfully",
+                        attendanceService.getTodayClockInCount()));
+    }
+
 }

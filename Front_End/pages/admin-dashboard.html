@@ -53,7 +53,7 @@
             ><img src="/assets/images/logo.png" alt="logo"
           /></a>
           <a class="navbar-brand brand-logo-mini" href="index.html"
-            ><img src="/assets/images/logo-mini.svg" alt="logo"
+            ><img src="/assets/images/brand_icons/mini logo.png" alt="logo"
           /></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -88,11 +88,12 @@
                 aria-expanded="false"
               >
                 <div class="nav-profile-img">
-                  <img src="/assets/images/faces/face1.jpg" alt="image" />
+                  <img
+                    id="profileImg"
+                    src="/assets/images/faces/face1.jpg"
+                    alt="image"
+                  />
                   <span class="availability-status online"></span>
-                </div>
-                <div class="nav-profile-text">
-                  <p class="mb-1 text-black">David Greymaax</p>
                 </div>
               </a>
               <div
@@ -263,7 +264,7 @@
               </div>
             </li>
             <li class="nav-item nav-logout d-none d-lg-block">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="#" onclick="logout(event)">
                 <i class="mdi mdi-power"></i>
               </a>
             </li>
@@ -290,13 +291,20 @@
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
                 <div class="nav-profile-image">
-                  <img src="/assets/images/faces/face1.jpg" alt="profile" />
+                  <img
+                    id="profileImg"
+                    src="/assets/images/faces/face1.jpg"
+                    alt="profile"
+                  />
                   <span class="login-status online"></span>
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
-                  <span class="font-weight-bold mb-2">David Grey. H</span>
-                  <span class="text-secondary text-small">Project Manager</span>
+                  <span class="font-weight-bold mb-2" id="adminName"></span>
+                  <span
+                    class="text-secondary text-small"
+                    id="adminPosition"
+                  ></span>
                 </div>
                 <i
                   class="mdi mdi-bookmark-check text-success nav-profile-badge"
@@ -304,13 +312,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" data-target="dashboardSection" href="#">
                 <span class="menu-title">Dashboard</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/pages/employee.html">
+              <a class="nav-link" data-target="employeeSection" href="#">
                 <span class="menu-title">Employee<br />Management</span>
                 <i class="mdi mdi-contacts menu-icon"></i>
               </a>
@@ -337,7 +345,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#tables">
+              <a class="nav-link" data-target="emailSection" href="#">
                 <span class="menu-title">Email</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
@@ -407,201 +415,1893 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
+          <!-- Main content area - replacing the existing content-wrapper div -->
           <div class="content-wrapper">
-            <div class="page-header">
-              <h3 class="page-title">
-                <span
-                  class="page-title-icon bg-gradient-primary text-white me-2"
-                >
-                  <i class="mdi mdi-home"></i>
-                </span>
-                Dashboard
-              </h3>
-            </div>
-            <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Total Employees
-                      <i
-                        class="mdi mdi-account-multiple mdi-24px float-end"
-                      ></i>
-                    </h4>
-                    <h2 class="mb-5">$ 15,0000</h2>
-                    <h6 class="card-text">Increased by 60%</h6>
-                  </div>
-                </div>
+            <!-- Dashboard Section -->
+            <section id="dashboardSection">
+              <div class="page-header">
+                <h3 class="page-title">
+                  <span
+                    class="page-title-icon bg-gradient-primary text-white me-2"
+                  >
+                    <i class="mdi mdi-view-dashboard"></i>
+                  </span>
+                  Admin Dashboard
+                </h3>
+                <nav aria-label="breadcrumb">
+                  <ul class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">
+                      <span>Overview</span>
+                    </li>
+                  </ul>
+                </nav>
               </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Present Today
-                      <i class="mdi mdi-calendar-check mdi-24px float-end"></i>
-                    </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                    <h6 class="card-text">Decreased by 10%</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4 stretch-card grid-margin">
-                <div
-                  class="card bg-gradient-success card-img-holder text-white"
-                >
-                  <div class="card-body">
-                    <img
-                      src="/assets/images/dashboard/circle.svg"
-                      class="card-img-absolute"
-                      alt="circle-image"
-                    />
-                    <h4 class="font-weight-normal mb-3">
-                      Pendding Approval
-                      <i class="mdi mdi-clipboard-alert mdi-24px float-end"></i>
-                    </h4>
-                    <h2 class="mb-5">95,5741</h2>
-                    <h6 class="card-text">Increased by 5%</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-7 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="clearfix">
-                      <h4 class="card-title float-start">
-                        Visit And Sales Statistics
+
+              <!-- Quick Stats Cards -->
+              <div class="row">
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-primary card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Total Employees
+                        <i
+                          class="mdi mdi-account-multiple mdi-24px float-end"
+                        ></i>
                       </h4>
+                      <h2 class="mb-5" id="totalEmployees">Loading...</h2>
+                      <button
+                        class="btn btn-primary btn-sm"
+                        id="viewEmployeesBtn"
+                      >
+                        View Details
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-success card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Active Today
+                        <i
+                          class="mdi mdi-calendar-check mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5" id="activeToday">Loading...</h2>
+                      <button
+                        class="btn btn-success btn-sm"
+                        id="viewAttendanceBtn"
+                      >
+                        View Attendance
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4 stretch-card grid-margin">
+                  <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Pending Approvals
+                        <i
+                          class="mdi mdi-clipboard-alert mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5" id="pendingApprovals">Loading...</h2>
+                      <button class="btn btn-info btn-sm" id="viewApprovalsBtn">
+                        Review Requests
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Actions Row -->
+              <div class="row">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Quick Actions</h4>
+                      <div class="row">
+                        <div class="col-md-3 mb-3">
+                          <div class="card card-action bg-light">
+                            <div class="card-body text-center py-4">
+                              <i
+                                class="mdi mdi-account-plus text-primary"
+                                style="font-size: 2.5rem"
+                              ></i>
+                              <h5 class="mt-3">Add Employee</h5>
+                              <button
+                                class="btn btn-primary mt-2"
+                                id="addEmployeeBtn"
+                                data-bs-toggle="modal"
+                                data-bs-target="#addEmployeeModal"
+                              >
+                                Add New
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Add Employee Modal -->
+                        <div
+                          class="modal fade"
+                          id="addEmployeeModal"
+                          tabindex="-1"
+                          aria-labelledby="addEmployeeModalLabel"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog modal-lg">
+                            <div
+                              class="modal-content rounded-3 shadow-lg border-0"
+                            >
+                              <!-- Header with professional blue gradient -->
+                              <div
+                                class="modal-header bg-primary bg-gradient p-4 border-bottom-0"
+                              >
+                                <h5
+                                  class="modal-title fs-4 fw-bold text-white"
+                                  id="addEmployeeModalLabel"
+                                >
+                                  <i class="mdi mdi-account-plus me-2"></i>Add
+                                  New Employee
+                                </h5>
+                                <button
+                                  type="button"
+                                  class="btn-close btn-close-white"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+
+                              <!-- Professional progress indicator -->
+                              <div class="bg-light py-2 px-4">
+                                <div class="progress" style="height: 4px">
+                                  <div
+                                    class="progress-bar bg-primary"
+                                    role="progressbar"
+                                    style="width: 0%"
+                                    aria-valuenow="0"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                    id="formProgress"
+                                  ></div>
+                                </div>
+                              </div>
+
+                              <div class="modal-body p-4">
+                                <form id="addEmployeeForm">
+                                  <!-- Personal Information Section -->
+                                  <div class="card mb-4 border-0 shadow-sm">
+                                    <div
+                                      class="card-header bg-white py-3 border-0"
+                                    >
+                                      <h6
+                                        class="card-title mb-0 text-primary fw-bold"
+                                      >
+                                        <i
+                                          class="mdi mdi-account-circle me-2"
+                                        ></i
+                                        >Personal Information
+                                      </h6>
+                                    </div>
+                                    <div class="card-body p-4">
+                                      <div class="row g-3">
+                                        <div class="col-md-6">
+                                          <label
+                                            for="firstName"
+                                            class="form-label fw-semibold"
+                                            >First Name
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                            id="firstName"
+                                            name="firstName"
+                                            required
+                                            placeholder="Enter first name"
+                                          />
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="lastName"
+                                            class="form-label fw-semibold"
+                                            >Last Name
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                            id="lastName"
+                                            name="lastName"
+                                            required
+                                            placeholder="Enter last name"
+                                          />
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="birthday"
+                                            class="form-label fw-semibold"
+                                            >Date of Birth
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <div class="input-group">
+                                            <span
+                                              class="input-group-text bg-white border-secondary-subtle"
+                                              ><i class="mdi mdi-calendar"></i
+                                            ></span>
+                                            <input
+                                              type="date"
+                                              class="form-control form-control-lg border-secondary-subtle"
+                                              id="birthday"
+                                              name="birthday"
+                                              required
+                                            />
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="nic"
+                                            class="form-label fw-semibold"
+                                            >NIC/Identification Number
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                            id="nic"
+                                            name="nic"
+                                            required
+                                            placeholder="Enter ID number"
+                                          />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Contact Information Section -->
+                                  <div class="card mb-4 border-0 shadow-sm">
+                                    <div
+                                      class="card-header bg-white py-3 border-0"
+                                    >
+                                      <h6
+                                        class="card-title mb-0 text-primary fw-bold"
+                                      >
+                                        <i
+                                          class="mdi mdi-contact-phone me-2"
+                                        ></i
+                                        >Contact Information
+                                      </h6>
+                                    </div>
+                                    <div class="card-body p-4">
+                                      <div class="row g-3">
+                                        <div class="col-md-6">
+                                          <label
+                                            for="email"
+                                            class="form-label fw-semibold"
+                                            >Email Address
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <div class="input-group">
+                                            <span
+                                              class="input-group-text bg-white border-secondary-subtle"
+                                              ><i
+                                                class="mdi mdi-email-outline"
+                                              ></i
+                                            ></span>
+                                            <input
+                                              type="email"
+                                              class="form-control form-control-lg border-secondary-subtle"
+                                              id="email"
+                                              name="email"
+                                              required
+                                              placeholder="example@company.com"
+                                            />
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="phone"
+                                            class="form-label fw-semibold"
+                                            >Phone Number
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <div class="input-group">
+                                            <span
+                                              class="input-group-text bg-white border-secondary-subtle"
+                                              ><i
+                                                class="mdi mdi-phone-outline"
+                                              ></i
+                                            ></span>
+                                            <input
+                                              type="tel"
+                                              class="form-control form-control-lg border-secondary-subtle"
+                                              id="phone"
+                                              name="phone"
+                                              required
+                                              placeholder="(XXX) XXX-XXXX"
+                                            />
+                                          </div>
+                                        </div>
+                                        <div class="col-12">
+                                          <label
+                                            for="address"
+                                            class="form-label fw-semibold"
+                                            >Address</label
+                                          >
+                                          <textarea
+                                            class="form-control rounded-3 border-secondary-subtle"
+                                            id="address"
+                                            name="address"
+                                            rows="3"
+                                            placeholder="Enter full address"
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Employment Details Section -->
+                                  <div class="card mb-4 border-0 shadow-sm">
+                                    <div
+                                      class="card-header bg-white py-3 border-0"
+                                    >
+                                      <h6
+                                        class="card-title mb-0 text-primary fw-bold"
+                                      >
+                                        <i
+                                          class="mdi mdi-briefcase-outline me-2"
+                                        ></i
+                                        >Employment Details
+                                      </h6>
+                                    </div>
+                                    <div class="card-body p-4">
+                                      <div class="row g-3">
+                                        <div class="col-md-6">
+                                          <label
+                                            for="position"
+                                            class="form-label fw-semibold"
+                                            >Position
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <input
+                                            type="text"
+                                            class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                            id="position"
+                                            name="position"
+                                            required
+                                            placeholder="Job title"
+                                          />
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="department"
+                                            class="form-label fw-semibold"
+                                            >Department
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <select
+                                            class="form-select form-select-lg rounded-3 border-secondary-subtle"
+                                            id="department"
+                                            name="department"
+                                            required
+                                          >
+                                            <option value="" selected disabled>
+                                              Select Department
+                                            </option>
+                                          </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                          <label
+                                            for="salary"
+                                            class="form-label fw-semibold"
+                                            >Salary
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <div class="input-group">
+                                            <span
+                                              class="input-group-text bg-white border-secondary-subtle"
+                                              >$</span
+                                            >
+                                            <input
+                                              type="number"
+                                              class="form-control form-control-lg border-secondary-subtle"
+                                              id="salary"
+                                              name="salary"
+                                              step="0.01"
+                                              required
+                                              placeholder="0.00"
+                                            />
+                                            <span
+                                              class="input-group-text bg-white border-secondary-subtle"
+                                              >USD</span
+                                            >
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6 mt-4">
+                                          <label
+                                            for="department"
+                                            class="form-label fw-semibold"
+                                            >Role
+                                            <span class="text-danger"
+                                              >*</span
+                                            ></label
+                                          >
+                                          <select
+                                            class="form-select form-select-lg rounded-3 border-secondary-subtle"
+                                            id="roles"
+                                            name="roles"
+                                            required
+                                          >
+                                            <option value="" selected disabled>
+                                              Select Role
+                                            </option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <!-- Profile Picture Section -->
+                                  <div class="card border-0 shadow-sm">
+                                    <div
+                                      class="card-header bg-white py-3 border-0"
+                                    >
+                                      <h6
+                                        class="card-title mb-0 text-primary fw-bold"
+                                      >
+                                        <i
+                                          class="mdi mdi-image-outline me-2"
+                                        ></i
+                                        >Profile Picture
+                                      </h6>
+                                    </div>
+                                    <div class="card-body p-4">
+                                      <div class="row align-items-center">
+                                        <div class="col-auto">
+                                          <div
+                                            class="upload-preview rounded-circle bg-light border shadow-sm"
+                                            id="imagePreview"
+                                            style="
+                                              width: 100px;
+                                              height: 100px;
+                                              display: flex;
+                                              align-items: center;
+                                              justify-content: center;
+                                              background-size: cover;
+                                              background-position: center;
+                                              overflow: hidden;
+                                            "
+                                          >
+                                            <i
+                                              class="mdi mdi-account text-secondary"
+                                              style="font-size: 48px"
+                                            ></i>
+                                          </div>
+                                        </div>
+                                        <div class="col">
+                                          <div class="mb-3">
+                                            <label
+                                              for="profilePicture"
+                                              class="form-label fw-semibold"
+                                              >Upload Photo</label
+                                            >
+                                            <input
+                                              type="file"
+                                              class="form-control border-secondary-subtle"
+                                              id="profilePicture"
+                                              name="profilePicture"
+                                              accept="image/*"
+                                            />
+                                            <div class="form-text text-muted">
+                                              Recommended size: 300x300px (Max:
+                                              2MB). JPG, PNG or GIF format.
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              </div>
+
+                              <!-- Professional footer with clear action buttons -->
+                              <div class="modal-footer bg-light p-4">
+                                <div
+                                  class="d-flex w-100 justify-content-between align-items-center"
+                                >
+                                  <div>
+                                    <button
+                                      type="button"
+                                      class="btn btn-primary btn-lg px-4 fw-semibold"
+                                      id="saveEmployeeBtn"
+                                    >
+                                      <i class="mdi mdi-content-save me-1"></i
+                                      >Save Employee
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- Alert Toast -->
+                            <div
+                              id="alertContainer"
+                              class="position-fixed bottom-0 end-0 my-2 mx-3 z-3"
+                            >
+                              <div id="alertTemplate">
+                                <div
+                                  class="alert alert-dismissible fade show"
+                                  role="alert"
+                                >
+                                  <span class="alert-message"></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                          <div class="card card-action bg-light">
+                            <div class="card-body text-center py-4">
+                              <i
+                                class="mdi mdi-calendar-clock text-success"
+                                style="font-size: 2.5rem"
+                              ></i>
+                              <h5 class="mt-3">Schedule</h5>
+                              <button
+                                class="btn btn-success mt-2"
+                                id="manageScheduleBtn"
+                              >
+                                Manage
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                          <div class="card card-action bg-light">
+                            <div class="card-body text-center py-4">
+                              <i
+                                class="mdi mdi-cash-multiple text-warning"
+                                style="font-size: 2.5rem"
+                              ></i>
+                              <h5 class="mt-3">Payroll</h5>
+                              <button
+                                class="btn btn-warning mt-2"
+                                id="payrollBtn"
+                              >
+                                Process
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                          <div class="card card-action bg-light">
+                            <div class="card-body text-center py-4">
+                              <i
+                                class="mdi mdi-book text-info"
+                                style="font-size: 2.5rem"
+                              ></i>
+                              <h5 class="mt-3">Reports</h5>
+                              <button class="btn btn-info mt-2" id="reportsBtn">
+                                Generate
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Employee Data Section -->
+              <div class="row">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
                       <div
-                        id="visit-sale-chart-legend"
-                        class="rounded-legend legend-horizontal legend-top-right float-end"
-                      ></div>
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <h4 class="card-title mb-0">Employee Management</h4>
+                      </div>
+
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="input-group">
+                            <div class="input-group-prepend bg-transparent">
+                              <i
+                                class="input-group-text border-0 mdi mdi-magnify"
+                              ></i>
+                            </div>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="employeeSearch"
+                              placeholder="Search employees..."
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Employee Search Results -->
+                      <div
+                        id="employeeSearchResults"
+                        class="mb-4"
+                        style="display: none"
+                      >
+                        <h5 class="text-muted mb-3">Search Results</h5>
+                        <div class="row" id="employeeCards">
+                          <!-- Employee card template -->
+                          <!-- End of employee card template -->
+                        </div>
+                      </div>
                     </div>
-                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
                   </div>
                 </div>
               </div>
-              <div class="col-md-5 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Traffic Sources</h4>
-                    <div
-                      class="doughnutjs-wrapper d-flex justify-content-center"
-                    >
-                      <canvas id="traffic-chart"></canvas>
+
+              <!-- Recent Activities Section -->
+              <div class="row">
+                <div class="col-md-6 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Pending Leave Requests</h4>
+                      <div id="leaveRequestsContainer">
+                        <div class="text-center py-4">
+                          <p>Loading leave requests...</p>
+                        </div>
+                      </div>
+                      <div class="text-center mt-3">
+                        <button
+                          class="btn btn-inverse-success"
+                          id="viewAllLeaveRequests"
+                        >
+                          View All Requests
+                        </button>
+                      </div>
                     </div>
-                    <div
-                      id="traffic-chart-legend"
-                      class="rounded-legend legend-vertical legend-bottom-left pt-4"
-                    ></div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Recent Tickets</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Assignee</th>
-                            <th>Subject</th>
-                            <th>Status</th>
-                            <th>Last Update</th>
-                            <th>Tracking ID</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              <img
-                                src="/assets/images/faces/face1.jpg"
-                                class="me-2"
-                                alt="image"
-                              />
-                              David Grey
-                            </td>
-                            <td>Fund is not recieved</td>
-                            <td>
-                              <label class="badge badge-gradient-success"
-                                >DONE</label
-                              >
-                            </td>
-                            <td>Dec 5, 2017</td>
-                            <td>WD-12345</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img
-                                src="/assets/images/faces/face2.jpg"
-                                class="me-2"
-                                alt="image"
-                              />
-                              Stella Johnson
-                            </td>
-                            <td>High loading time</td>
-                            <td>
-                              <label class="badge badge-gradient-warning"
-                                >PROGRESS</label
-                              >
-                            </td>
-                            <td>Dec 12, 2017</td>
-                            <td>WD-12346</td>
-                          </tr>
-                          <tr>
-                            <td>
+
+                <!-- New Card for Employees Without System Access -->
+                <div class="col-md-6 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <h4 class="card-title mb-0">
+                          Employees Without System Access
+                        </h4>
+                        <span
+                          class="badge bg-danger rounded-pill"
+                          id="noAccessCount"
+                        ></span>
+                      </div>
+
+                      <div class="no-access-employees">
+                        <!-- Employee Cards -->
+                        <div
+                          class="no-access-employee-card mb-3"
+                          data-employee-id="${emp.id}"
+                        >
+                          <div class="d-flex align-items-center">
+                            <div class="employee-avatar me-3 position-relative">
                               <img
                                 src="/assets/images/faces/face3.jpg"
-                                class="me-2"
-                                alt="image"
+                                alt="Employee"
+                                class="rounded-circle"
+                                width="50"
+                                height="50"
                               />
-                              Marina Michel
-                            </td>
-                            <td>Website down for one week</td>
-                            <td>
-                              <label class="badge badge-gradient-info"
-                                >ON HOLD</label
+                              <span
+                                class="position-absolute bottom-0 end-0 p-1 bg-danger border border-light rounded-circle"
                               >
-                            </td>
-                            <td>Dec 16, 2017</td>
-                            <td>WD-12347</td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <img
-                                src="/assets/images/faces/face4.jpg"
-                                class="me-2"
-                                alt="image"
-                              />
-                              John Doe
-                            </td>
-                            <td>Loosing control on server</td>
-                            <td>
-                              <label class="badge badge-gradient-danger"
-                                >REJECTED</label
+                                <span class="visually-hidden">No access</span>
+                              </span>
+                            </div>
+                            <div class="employee-info flex-grow-1">
+                              <h6 class="mb-0">Sarah Johnson</h6>
+                              <p class="text-muted small mb-0">
+                                HR Department • Joined Apr 1, 2025
+                              </p>
+                            </div>
+                            <div class="action-buttons">
+                              <button
+                                class="btn btn-outline-primary btn-sm create-account-btn"
                               >
-                            </td>
-                            <td>Dec 3, 2017</td>
-                            <td>WD-12348</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                                <i class="mdi mdi-account-plus me-1"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="text-center mt-3">
+                        <button
+                          class="btn btn-inverse-success"
+                          id="createAllAccountsBtn"
+                        >
+                          <i class="mdi mdi-account-multiple-plus me-1"></i>
+                          View All Accounts
+                        </button>
+                      </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Employee Management Section -->
+            <section id="employeeSection">
+              <div class="page-header">
+                <h3 class="page-title">
+                  <span
+                    class="page-title-icon bg-gradient-primary text-white me-2"
+                  >
+                    <i class="mdi mdi-contacts"></i>
+                  </span>
+                  Employee Management
+                </h3>
+              </div>
+              <!-- Employee Quick Stats -->
+              <div class="row">
+                <div class="col-md-3 stretch-card grid-margin">
+                  <div class="card bg-gradient-info card-img-holder text-white">
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Total Employees
+                        <i
+                          class="mdi mdi-account-multiple mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">145</h2>
+                      <h6 class="card-text">Increased by 12% this month</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-success card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Active Employees
+                        <i class="mdi mdi-account-check mdi-24px float-end"></i>
+                      </h4>
+                      <h2 class="mb-5">139</h2>
+                      <h6 class="card-text">96% of total workforce</h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-danger card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Departments
+                        <i
+                          class="mdi mdi-office-building mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">8</h2>
+                      <h6 class="card-text">
+                        Finance, HR, IT, Operations, etc.
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 stretch-card grid-margin">
+                  <div
+                    class="card bg-gradient-primary card-img-holder text-white"
+                  >
+                    <div class="card-body">
+                      <img
+                        src="/assets/images/dashboard/circle.svg"
+                        class="card-img-absolute"
+                        alt="circle-image"
+                      />
+                      <h4 class="font-weight-normal mb-3">
+                        Open Positions
+                        <i
+                          class="mdi mdi-briefcase-plus mdi-24px float-end"
+                        ></i>
+                      </h4>
+                      <h2 class="mb-5">15</h2>
+                      <h6 class="card-text">5 urgent positions to fill</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons Row -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-body d-flex flex-wrap gap-3">
+                      <button
+                        type="button"
+                        class="btn btn-gradient-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#addEmployeeModal"
+                      >
+                        <i class="mdi mdi-account-plus me-1"></i> Add Employee
+                      </button>
+                      <button type="button" class="btn btn-gradient-info">
+                        <i class="mdi mdi-file-export me-1"></i> Export Data
+                      </button>
+                      <button type="button" class="btn btn-gradient-success">
+                        <i class="mdi mdi-email-outline me-1"></i> Email
+                        Selected
+                      </button>
+                      <button type="button" class="btn btn-gradient-warning">
+                        <i class="mdi mdi-filter me-1"></i> Filter View
+                      </button>
+                      <button type="button" class="btn btn-gradient-danger">
+                        <i class="mdi mdi-file-pdf me-1"></i> Generate Report
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Add Employee Modal -->
+              <div
+                class="modal fade"
+                id="addEmployeeModal"
+                tabindex="-1"
+                aria-labelledby="addEmployeeModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content rounded-3 shadow-lg border-0">
+                    <!-- Header with professional blue gradient -->
+                    <div
+                      class="modal-header bg-primary bg-gradient p-4 border-bottom-0"
+                    >
+                      <h5
+                        class="modal-title fs-4 fw-bold text-white"
+                        id="addEmployeeModalLabel"
+                      >
+                        <i class="mdi mdi-account-plus me-2"></i>Add New
+                        Employee
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+
+                    <!-- Professional progress indicator -->
+                    <div class="bg-light py-2 px-4">
+                      <div class="progress" style="height: 4px">
+                        <div
+                          class="progress-bar bg-primary"
+                          role="progressbar"
+                          style="width: 0%"
+                          aria-valuenow="0"
+                          aria-valuemin="0"
+                          aria-valuemax="100"
+                          id="formProgress"
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div class="modal-body p-4">
+                      <form id="addEmployeeForm">
+                        <!-- Personal Information Section -->
+                        <div class="card mb-4 border-0 shadow-sm">
+                          <div class="card-header bg-white py-3 border-0">
+                            <h6 class="card-title mb-0 text-primary fw-bold">
+                              <i class="mdi mdi-account-circle me-2"></i
+                              >Personal Information
+                            </h6>
+                          </div>
+                          <div class="card-body p-4">
+                            <div class="row g-3">
+                              <div class="col-md-6">
+                                <label
+                                  for="firstName"
+                                  class="form-label fw-semibold"
+                                  >First Name
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                  id="firstName"
+                                  name="firstName"
+                                  required
+                                  placeholder="Enter first name"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="lastName"
+                                  class="form-label fw-semibold"
+                                  >Last Name
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                  id="lastName"
+                                  name="lastName"
+                                  required
+                                  placeholder="Enter last name"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="birthday"
+                                  class="form-label fw-semibold"
+                                  >Date of Birth
+                                  <span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    ><i class="mdi mdi-calendar"></i
+                                  ></span>
+                                  <input
+                                    type="date"
+                                    class="form-control form-control-lg border-secondary-subtle"
+                                    id="birthday"
+                                    name="birthday"
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label for="nic" class="form-label fw-semibold"
+                                  >NIC/Identification Number
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                  id="nic"
+                                  name="nic"
+                                  required
+                                  placeholder="Enter ID number"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Contact Information Section -->
+                        <div class="card mb-4 border-0 shadow-sm">
+                          <div class="card-header bg-white py-3 border-0">
+                            <h6 class="card-title mb-0 text-primary fw-bold">
+                              <i class="mdi mdi-contact-phone me-2"></i>Contact
+                              Information
+                            </h6>
+                          </div>
+                          <div class="card-body p-4">
+                            <div class="row g-3">
+                              <div class="col-md-6">
+                                <label
+                                  for="email"
+                                  class="form-label fw-semibold"
+                                  >Email Address
+                                  <span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    ><i class="mdi mdi-email-outline"></i
+                                  ></span>
+                                  <input
+                                    type="email"
+                                    class="form-control form-control-lg border-secondary-subtle"
+                                    id="email"
+                                    name="email"
+                                    required
+                                    placeholder="example@company.com"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="phone"
+                                  class="form-label fw-semibold"
+                                  >Phone Number
+                                  <span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    ><i class="mdi mdi-phone-outline"></i
+                                  ></span>
+                                  <input
+                                    type="tel"
+                                    class="form-control form-control-lg border-secondary-subtle"
+                                    id="phone"
+                                    name="phone"
+                                    required
+                                    placeholder="(XXX) XXX-XXXX"
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-12">
+                                <label
+                                  for="address"
+                                  class="form-label fw-semibold"
+                                  >Address</label
+                                >
+                                <textarea
+                                  class="form-control rounded-3 border-secondary-subtle"
+                                  id="address"
+                                  name="address"
+                                  rows="3"
+                                  placeholder="Enter full address"
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Employment Details Section -->
+                        <div class="card mb-4 border-0 shadow-sm">
+                          <div class="card-header bg-white py-3 border-0">
+                            <h6 class="card-title mb-0 text-primary fw-bold">
+                              <i class="mdi mdi-briefcase-outline me-2"></i
+                              >Employment Details
+                            </h6>
+                          </div>
+                          <div class="card-body p-4">
+                            <div class="row g-3">
+                              <div class="col-md-6">
+                                <label
+                                  for="position"
+                                  class="form-label fw-semibold"
+                                  >Position
+                                  <span class="text-danger">*</span></label
+                                >
+                                <input
+                                  type="text"
+                                  class="form-control form-control-lg rounded-3 border-secondary-subtle"
+                                  id="position"
+                                  name="position"
+                                  required
+                                  placeholder="Job title"
+                                />
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="department"
+                                  class="form-label fw-semibold"
+                                  >Department
+                                  <span class="text-danger">*</span></label
+                                >
+                                <select
+                                  class="form-select form-select-lg rounded-3 border-secondary-subtle"
+                                  id="department"
+                                  name="department"
+                                  required
+                                >
+                                  <option value="" selected disabled>
+                                    Select Department
+                                  </option>
+                                  <option value="IT">IT</option>
+                                  <option value="Finance">Finance</option>
+                                  <option value="HR">Human Resources</option>
+                                  <option value="Marketing">Marketing</option>
+                                  <option value="Operations">Operations</option>
+                                  <option value="Sales">Sales</option>
+                                  <option value="Research">
+                                    Research & Development
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="salary"
+                                  class="form-label fw-semibold"
+                                  >Salary
+                                  <span class="text-danger">*</span></label
+                                >
+                                <div class="input-group">
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    >$</span
+                                  >
+                                  <input
+                                    type="number"
+                                    class="form-control form-control-lg border-secondary-subtle"
+                                    id="salary"
+                                    name="salary"
+                                    step="0.01"
+                                    required
+                                    placeholder="0.00"
+                                  />
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    >USD</span
+                                  >
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label
+                                  for="startDate"
+                                  class="form-label fw-semibold"
+                                  >Start Date</label
+                                >
+                                <div class="input-group">
+                                  <span
+                                    class="input-group-text bg-white border-secondary-subtle"
+                                    ><i class="mdi mdi-calendar-clock"></i
+                                  ></span>
+                                  <input
+                                    type="date"
+                                    class="form-control form-control-lg border-secondary-subtle"
+                                    id="startDate"
+                                    name="startDate"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Profile Picture Section -->
+                        <div class="card border-0 shadow-sm">
+                          <div class="card-header bg-white py-3 border-0">
+                            <h6 class="card-title mb-0 text-primary fw-bold">
+                              <i class="mdi mdi-image-outline me-2"></i>Profile
+                              Picture
+                            </h6>
+                          </div>
+                          <div class="card-body p-4">
+                            <div class="row align-items-center">
+                              <div class="col-auto">
+                                <div
+                                  class="upload-preview rounded-circle bg-light border shadow-sm"
+                                  style="
+                                    width: 100px;
+                                    height: 100px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                  "
+                                >
+                                  <i
+                                    class="mdi mdi-account text-secondary"
+                                    style="font-size: 48px"
+                                  ></i>
+                                </div>
+                              </div>
+                              <div class="col">
+                                <div class="mb-3">
+                                  <label
+                                    for="profilePicture"
+                                    class="form-label fw-semibold"
+                                    >Upload Photo</label
+                                  >
+                                  <input
+                                    type="file"
+                                    class="form-control border-secondary-subtle"
+                                    id="profilePicture"
+                                    name="profilePicture"
+                                    accept="image/*"
+                                  />
+                                  <div class="form-text text-muted">
+                                    Recommended size: 300x300px (Max: 2MB). JPG,
+                                    PNG or GIF format.
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- Professional footer with clear action buttons -->
+                    <div class="modal-footer bg-light p-4">
+                      <div
+                        class="d-flex w-100 justify-content-between align-items-center"
+                      >
+                        <div>
+                          <span class="text-danger fw-semibold"
+                            >* Required fields</span
+                          >
+                        </div>
+                        <div>
+                          <button
+                            type="button"
+                            class="btn btn-light btn-lg px-4 me-2"
+                            data-bs-dismiss="modal"
+                          >
+                            <i class="mdi mdi-close me-1"></i>Cancel
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-primary btn-lg px-4 fw-semibold"
+                            id="saveEmployeeBtn"
+                          >
+                            <i class="mdi mdi-content-save me-1"></i>Save
+                            Employee
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Employee Table -->
+              <div class="row">
+                <div class="col-12 grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Employee Directory</h4>
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <div class="input-group-prepend bg-transparent">
+                                <i
+                                  class="input-group-text border-0 mdi mdi-magnify"
+                                ></i>
+                              </div>
+                              <input
+                                type="text"
+                                class="form-control bg-transparent border-0"
+                                placeholder="Search by name, ID, department..."
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                          <div class="btn-group">
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                            >
+                              All
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                            >
+                              Active
+                            </button>
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-sm"
+                            >
+                              Inactive
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </th>
+                              <th>Employee</th>
+                              <th>ID</th>
+                              <th>Department</th>
+                              <th>Position</th>
+                              <th>Email</th>
+                              <th>Phone</th>
+                              <th>Status</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <img
+                                  src="/assets/images/faces/face1.jpg"
+                                  class="me-2 rounded-circle"
+                                  alt="image"
+                                  style="width: 38px; height: 38px"
+                                />
+                                David Grey
+                              </td>
+                              <td>EMP001</td>
+                              <td>IT</td>
+                              <td>Project Manager</td>
+                              <td>david.grey@example.com</td>
+                              <td>+1 234 567 8901</td>
+                              <td>
+                                <label class="badge badge-gradient-success"
+                                  >Active</label
+                                >
+                              </td>
+                              <td>
+                                <div class="d-flex">
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-info btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-eye"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-success btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-pencil"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-danger btn-sm"
+                                  >
+                                    <i class="mdi mdi-delete"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <img
+                                  src="/assets/images/faces/face2.jpg"
+                                  class="me-2 rounded-circle"
+                                  alt="image"
+                                  style="width: 38px; height: 38px"
+                                />
+                                Stella Johnson
+                              </td>
+                              <td>EMP002</td>
+                              <td>Finance</td>
+                              <td>Financial Analyst</td>
+                              <td>stella.johnson@example.com</td>
+                              <td>+1 234 567 8902</td>
+                              <td>
+                                <label class="badge badge-gradient-success"
+                                  >Active</label
+                                >
+                              </td>
+                              <td>
+                                <div class="d-flex">
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-info btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-eye"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-success btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-pencil"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-danger btn-sm"
+                                  >
+                                    <i class="mdi mdi-delete"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <img
+                                  src="/assets/images/faces/face3.jpg"
+                                  class="me-2 rounded-circle"
+                                  alt="image"
+                                  style="width: 38px; height: 38px"
+                                />
+                                Marina Michel
+                              </td>
+                              <td>EMP003</td>
+                              <td>HR</td>
+                              <td>HR Manager</td>
+                              <td>marina.michel@example.com</td>
+                              <td>+1 234 567 8903</td>
+                              <td>
+                                <label class="badge badge-gradient-success"
+                                  >Active</label
+                                >
+                              </td>
+                              <td>
+                                <div class="d-flex">
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-info btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-eye"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-success btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-pencil"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-danger btn-sm"
+                                  >
+                                    <i class="mdi mdi-delete"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <img
+                                  src="/assets/images/faces/face4.jpg"
+                                  class="me-2 rounded-circle"
+                                  alt="image"
+                                  style="width: 38px; height: 38px"
+                                />
+                                John Doe
+                              </td>
+                              <td>EMP004</td>
+                              <td>Marketing</td>
+                              <td>Marketing Specialist</td>
+                              <td>john.doe@example.com</td>
+                              <td>+1 234 567 8904</td>
+                              <td>
+                                <label class="badge badge-gradient-warning"
+                                  >On Leave</label
+                                >
+                              </td>
+                              <td>
+                                <div class="d-flex">
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-info btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-eye"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-success btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-pencil"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-danger btn-sm"
+                                  >
+                                    <i class="mdi mdi-delete"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div
+                                  class="form-check form-check-flat form-check-primary"
+                                >
+                                  <label class="form-check-label">
+                                    <input
+                                      type="checkbox"
+                                      class="form-check-input"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <img
+                                  src="/assets/images/faces/face5.jpg"
+                                  class="me-2 rounded-circle"
+                                  alt="image"
+                                  style="width: 38px; height: 38px"
+                                />
+                                Sarah Williams
+                              </td>
+                              <td>EMP005</td>
+                              <td>Operations</td>
+                              <td>Operations Manager</td>
+                              <td>sarah.williams@example.com</td>
+                              <td>+1 234 567 8905</td>
+                              <td>
+                                <label class="badge badge-gradient-danger"
+                                  >Inactive</label
+                                >
+                              </td>
+                              <td>
+                                <div class="d-flex">
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-info btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-eye"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-success btn-sm me-1"
+                                  >
+                                    <i class="mdi mdi-pencil"></i>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn btn-gradient-danger btn-sm"
+                                  >
+                                    <i class="mdi mdi-delete"></i>
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-4"
+                      >
+                        <div>
+                          <p class="text-muted">Showing 5 of 145 entries</p>
+                        </div>
+                        <nav>
+                          <ul class="pagination">
+                            <li class="page-item disabled">
+                              <a class="page-link" href="#">
+                                <i class="mdi mdi-chevron-left"></i>
+                              </a>
+                            </li>
+                            <li class="page-item active">
+                              <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                              <a class="page-link" href="#">
+                                <i class="mdi mdi-chevron-right"></i>
+                              </a>
+                            </li>
+                          </ul>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Employee Statistics and Insights -->
+              <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Department Distribution</h4>
+                      <div class="chart-container">
+                        <canvas
+                          id="departmentPieChart"
+                          style="height: 250px"
+                        ></canvas>
+                      </div>
+                      <div class="mt-4">
+                        <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">IT Department</span>
+                          <span class="font-weight-bold">32%</span>
+                        </div>
+                        <div class="progress progress-sm">
+                          <div
+                            class="progress-bar bg-gradient-success"
+                            role="progressbar"
+                            style="width: 32%"
+                          ></div>
+                        </div>
+                      </div>
+                      <div class="mt-4">
+                        <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">Finance Department</span>
+                          <span class="font-weight-bold">18%</span>
+                        </div>
+                        <div class="progress progress-sm">
+                          <div
+                            class="progress-bar bg-gradient-info"
+                            role="progressbar"
+                            style="width: 18%"
+                          ></div>
+                        </div>
+                      </div>
+                      <div class="mt-4">
+                        <div class="d-flex justify-content-between mb-2">
+                          <span class="text-muted">HR Department</span>
+                          <span class="font-weight-bold">15%</span>
+                        </div>
+                        <div class="progress progress-sm">
+                          <div
+                            class="progress-bar bg-gradient-primary"
+                            role="progressbar"
+                            style="width: 15%"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Workforce Trends</h4>
+                      <canvas
+                        id="employeeTrendsChart"
+                        style="height: 250px"
+                      ></canvas>
+                      <div class="mt-4">
+                        <div
+                          class="d-flex justify-content-between align-items-center"
+                        >
+                          <div class="text-success">
+                            <i class="mdi mdi-arrow-up-bold mr-1"></i>
+                            <span>+12.5%</span>
+                          </div>
+                          <p class="mb-0 text-muted">
+                            Overall employee growth this year
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Upcoming Events & Birthdays -->
+              <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-center mb-4"
+                      >
+                        <h4 class="card-title mb-0">
+                          Upcoming Events & Birthdays
+                        </h4>
+                        <div class="dropdown">
+                          <button
+                            class="btn btn-outline-primary dropdown-toggle btn-sm"
+                            type="button"
+                            id="eventsDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                          >
+                            This Month
+                          </button>
+                          <div
+                            class="dropdown-menu"
+                            aria-labelledby="eventsDropdown"
+                          >
+                            <a class="dropdown-item" href="#">This Week</a>
+                            <a class="dropdown-item" href="#">This Month</a>
+                            <a class="dropdown-item" href="#">Next Month</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h5>Company Events</h5>
+                          <div class="list-group">
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">Quarterly Team Meeting</h6>
+                                <small class="text-muted">Mar 25</small>
+                              </div>
+                              <p class="mb-1">
+                                Conference Room A, 2:00 PM - 4:00 PM
+                              </p>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                  Technical Training Workshop
+                                </h6>
+                                <small class="text-muted">Mar 28</small>
+                              </div>
+                              <p class="mb-1">
+                                Training Center, 10:00 AM - 3:00 PM
+                              </p>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1">
+                                  Company Anniversary Celebration
+                                </h6>
+                                <small class="text-muted">Apr 1</small>
+                              </div>
+                              <p class="mb-1">Main Hall, 5:00 PM onwards</p>
+                            </a>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <h5>Upcoming Birthdays</h5>
+                          <div class="list-group">
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex align-items-center">
+                                <img
+                                  src="/assets/images/faces/face2.jpg"
+                                  class="me-3 rounded-circle"
+                                  alt="profile"
+                                  style="width: 38px; height: 38px"
+                                />
+                                <div>
+                                  <h6 class="mb-0">Stella Johnson</h6>
+                                  <small class="text-muted">Mar 24</small>
+                                </div>
+                              </div>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex align-items-center">
+                                <img
+                                  src="/assets/images/faces/face5.jpg"
+                                  class="me-3 rounded-circle"
+                                  alt="profile"
+                                  style="width: 38px; height: 38px"
+                                />
+                                <div>
+                                  <h6 class="mb-0">Sarah Williams</h6>
+                                  <small class="text-muted">Mar 29</small>
+                                </div>
+                              </div>
+                            </a>
+                            <a
+                              href="#"
+                              class="list-group-item list-group-item-action"
+                            >
+                              <div class="d-flex align-items-center">
+                                <img
+                                  src="/assets/images/faces/face4.jpg"
+                                  class="me-3 rounded-circle"
+                                  alt="profile"
+                                  style="width: 38px; height: 38px"
+                                />
+                                <div>
+                                  <h6 class="mb-0">John Doe</h6>
+                                  <small class="text-muted">Apr 2</small>
+                                </div>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Alert Toast -->
+            <div
+              id="alertContainer"
+              class="position-fixed bottom-0 end-0 my-2 mx-3 z-3"
+            >
+              <div id="alertTemplate">
+                <div class="alert alert-dismissible fade show" role="alert">
+                  <span class="alert-message"></span>
                 </div>
               </div>
             </div>
@@ -630,6 +2330,8 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
     <script src="/assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- endinject -->
     <!-- Plugin js for this page -->
     <script src="/assets/vendors/chart.js/chart.umd.js"></script>
@@ -644,6 +2346,55 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="/assets/js/dashboard.js"></script>
+    <script src="/js/user-dashboard.js"></script>
+    <script src="/js/admin-dashboard.js"></script>
+    <script src="/js/admin-employee.js"></script>
     <!-- End custom js for this page -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        function showSectionById(id) {
+          // Hide all sections
+          document.querySelectorAll("section").forEach((section) => {
+            section.style.display = "none";
+          });
+
+          // Show the target section by ID
+          let targetSection = document.getElementById(id);
+          if (targetSection) {
+            targetSection.style.display = "block";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            console.error("Section not found:", id);
+          }
+        }
+
+        // Get the hash from the URL and remove the '#' symbol
+        const initialHash = window.location.hash.substring(1);
+
+        // If there's a hash, show the corresponding section, otherwise show the default section
+        if (initialHash) {
+          showSectionById(initialHash);
+        } else {
+          showSectionById("dashboardSection"); // Default section
+        }
+
+        // Handle navigation links
+        document
+          .querySelectorAll(".nav-link, #leavePageBtn")
+          .forEach((link) => {
+            link.addEventListener("click", function (event) {
+              event.preventDefault(); // Prevent default link behavior
+
+              let targetId = this.getAttribute("data-target");
+
+              // Set the hash in the URL and trigger the section change
+              if (targetId) {
+                window.location.hash = targetId;
+                showSectionById(targetId);
+              }
+            });
+          });
+      });
+    </script>
   </body>
 </html>

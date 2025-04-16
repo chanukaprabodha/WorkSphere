@@ -166,6 +166,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     }
 
+    @Override
+    public int getTodayClockInCount() {
+        int countTodayClockIns = attendanceRepo.countTodayClockIns();
+        System.out.println(countTodayClockIns);
+        return countTodayClockIns;
+    }
+
     public boolean isTodayPublicHoliday() {
         RestTemplate restTemplate = new RestTemplate();
         int year = Year.now().getValue();

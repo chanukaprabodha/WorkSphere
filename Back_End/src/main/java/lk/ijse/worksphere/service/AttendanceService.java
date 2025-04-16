@@ -16,4 +16,6 @@ public interface AttendanceService {
     List<AttendanceDTO> getMonthlyAttendance(String token);
 
     String getAttendanceStatus(String token);
+
+    int getTodayClockInCount();
 }

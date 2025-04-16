@@ -1,7 +1,75 @@
 var token = localStorage.getItem("jwt_token");
-$(document).ready(function () {
+
+$(document).ready(function () { 
   loadLeaveTypes();
+  loadLeaveHistory();
 });
+
+function loadLeaveHistory() { 
+  $.ajax({
+    url: `http://localhost:8080/api/v1/leave/recentLeaves`,
+    method: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+      contentType: "application/json",
+    },
+    success: function (response) {
+      const leaveList = response.data;
+
+      const tbody = $("#recentLeaveTable");
+      tbody.empty();
+
+      leaveList.forEach(leave => {
+        console.log(leave);
+        const dateApplied = formatDate(leave.createdAt);
+        const from = formatDate(leave.startDate);
+        const to = formatDate(leave.endDate);
+        const type = leave.leaveType?.charAt(0) + leave.leaveType?.slice(1).toLowerCase() + " Leave";
+
+        let statusClass = "";
+        switch (leave.status) {
+          case "APPROVED":
+            statusClass = "badge-gradient-success";
+            break;
+          case "PENDING":
+            statusClass = "badge-gradient-warning";
+            break;
+          case "REJECTED":
+            statusClass = "badge-gradient-danger";
+            break;
+          default:
+            statusClass = "badge-secondary";
+        }
+
+        const row = `
+          <tr>
+            <td>${dateApplied}</td>
+            <td>${type}</td>
+            <td>${from}</td>
+            <td>${to}</td>
+            <td><span class="badge ${statusClass}">${capitalize(leave.status)}</span></td>
+          </tr>
+        `;
+        tbody.append(row);
+      });
+    },
+    error: function (xhr, status, error) {
+      showAlert("danger", "Error loading leave history");
+      console.error("Error loading leave history:", error);
+    }
+  });
+}
+
+// Helper function to format date (e.g., "Apr 12, 2025")
+function formatDate(dateStr) {
+  if (!dateStr) return "-";
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+  });
+}
 
 function leaveToday(e) {
   e.preventDefault();
@@ -75,20 +143,8 @@ function leaveTomorrow(e) {
   }
 }
 
-function showAlert(type, message) {
-  const alertClass = type === "success" ? "bg-success" : "bg-danger";
-  const alertHtml = `
-              <div class="alert ${alertClass} text-white alert-dismissible fade show" role="alert">
-                  ${message}
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          `;
-
-  $("#alertContainer").append(alertHtml);
-
-  setTimeout(() => {
-    $(".alert").alert("close");
-  }, 3000);
+function capitalize(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 
 function loadLeaveTypes() {
@@ -99,11 +155,11 @@ function loadLeaveTypes() {
       Authorization: "Bearer " + token,
     },
     success: function (response) {
-      const select = $("#leaveType");
-      select.empty();
-
+      const applyLeaveSelect = $("#leaveType");
+      applyLeaveSelect.empty();
       response.data.forEach((type) => {
-        select.append(`<option value="${type}">${type}</option>`);
+        const formatted = capitalize(type);
+        applyLeaveSelect.append(`<option value="${type}"">${formatted}</option>`);
       });
     },
     error: function () {
@@ -118,6 +174,12 @@ function sendLeaveRequest(e) {
     const leaveType = $("#leaveType").val();
     const startDate = $("#fromDate").val();
     const endDate = $("#toDate").val();
+    const leaveReason = $("#leaveReason").val();
+
+    if (!leaveType || !startDate || !endDate || !leaveReason) {
+      showAlert("danger", "Please fill in all the fields.");
+      return;
+    }
 
     $.ajax({
       url: "http://localhost:8080/api/v1/leave/apply",
@@ -130,6 +192,7 @@ function sendLeaveRequest(e) {
         leaveType: leaveType,
         startDate: startDate,
         endDate: endDate,
+        leaveReason: leaveReason,
       }),
       success: function (response) {
         showAlert("success", "Leave request sent successfully!");
@@ -143,3 +206,60 @@ function sendLeaveRequest(e) {
     return;
   }
 }
+
+$("#leaveHistoryModal").on("show.bs.modal", function () {
+
+  $.ajax({
+    url: `http://localhost:8080/api/v1/leave/history`,
+    type: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+      contentType: "application/json",
+    },
+    success: function (response) {
+      const leaveList = response.data;
+
+      const tbody = $("#leaveHistoryTable");
+      tbody.empty();
+
+      leaveList.forEach(leave => {
+        console.log(leave);
+        const dateApplied = formatDate(leave.createdAt);
+        const from = formatDate(leave.startDate);
+        const to = formatDate(leave.endDate);
+        const type = leave.leaveType?.charAt(0) + leave.leaveType?.slice(1).toLowerCase() + " Leave";
+        const reason = leave.reason;
+
+        let statusClass = "";
+        switch (leave.status) {
+          case "APPROVED":
+            statusClass = "badge-gradient-success";
+            break;
+          case "PENDING":
+            statusClass = "badge-gradient-warning";
+            break;
+          case "REJECTED":
+            statusClass = "badge-gradient-danger";
+            break;
+          default:
+            statusClass = "badge-secondary";
+        }
+
+        const row = `
+          <tr>
+            <td>${dateApplied}</td>
+            <td>${type}</td>
+            <td>${from}</td>
+            <td>${to}</td>
+            <td>${reason !== null ? reason : "-"}</td>
+            <td><span class="badge ${statusClass}">${capitalize(leave.status)}</span></td>
+          </tr>
+        `;
+        tbody.append(row);
+      });
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching leave history:", error);
+    },
+  });
+});

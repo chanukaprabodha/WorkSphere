@@ -37,36 +37,49 @@ document.addEventListener("DOMContentLoaded", function () {
   monthBtn.addEventListener("click", function () {
     const today = new Date();
     const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-  
+
     startInput.value = formatDate(firstDay);
     endInput.value = formatDate(today); // use today's date, not end of month
   });
-  
 });
 
 $(document).ready(function () {
   getAttendance();
-  // Check the stored status and update the UI accordingly
-  var clockInStatus = localStorage.getItem("clockInStatus");
-  if (clockInStatus === "clockedIn") {
-    var clockInTime = localStorage.getItem("clockInTime");
-    $("#onStatusBadge").html(
-      '<i class="mdi mdi-check-circle me-2"></i>Clocked In at ' + clockInTime
-    );
-    $("#clockInBtn").hide();
-    $("#clockOutBtn").show();
-  } else if (clockInStatus === "clockedOut") {
-    var clockOutTime = localStorage.getItem("clockOutTime");
-    $("#onStatusBadge").html(
-      '<i class="mdi mdi-check-circle me-2"></i>Clocked Out at ' + clockOutTime
-    );
-    $("#clockInBtn").show();
-    $("#clockOutBtn").hide();
-  } else {
-    $("#clockInBtn").show();
-    $("#clockOutBtn").hide();
-  }
+  updateAttendanceStatusUI();
+  
 });
+
+function updateAttendanceStatusUI() {
+  // Check the stored status and update the UI accordingly
+  $.ajax({
+    url: "http://localhost:8080/api/v1/attendance/status",
+    type: "GET",
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+    success: function (response) {
+      console.log(response);
+      if (response.data === "clockIn") {
+        $("#onStatusBadge").html("You are currently clocked out!"
+        );
+        $("#clockInBtn").show();
+        $("#clockOutBtn").hide();
+      } else if (response.data === "clockOut") {
+        $("#onStatusBadge").html("You are currently clocked in!"
+        );
+        $("#clockInBtn").hide();
+        $("#clockOutBtn").show();
+      } else {
+        // $("#onStatusBadge").html("Not Clocked In");
+        // $("#clockInBtn").show();
+        // $("#clockOutBtn").hide();
+      }
+    },
+    error: function (xhr, status, error) {
+      console.log("Error fetching clock status:", error);
+    },
+  });
+}
 
 $("#clockInBtn").click(function (e) {
   e.preventDefault();
@@ -80,20 +93,10 @@ $("#clockInBtn").click(function (e) {
     },
     success: function (response) {
       showAlert("success", "You have clocked in successfully!");
-      var currentTime = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      $("#onStatusBadge").html(
-        '<i class="mdi mdi-check-circle me-2"></i>Clocked In at ' + currentTime
-      );
-      localStorage.setItem("clockInStatus", "clockedIn");
-      localStorage.setItem("clockInTime", currentTime);
-      $("#clockInBtn").hide();
-      $("#clockOutBtn").show();
+      updateAttendanceStatusUI();
     },
     error: function (xhr, status, error) {
-      showAlert("danger", "Clocking in failed: ");
+      showAlert("danger", "You have already clocked in for today.");
       console.log("Error clocking in:", error);
     },
   });
@@ -111,21 +114,11 @@ $("#clockOutBtn").click(function (e) {
     },
     success: function (response) {
       showAlert("success", "You have clocked out successfully!");
-      var currentTime = new Date().toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      $("#onStatusBadge").html(
-        '<i class="mdi mdi-check-circle me-2"></i>Clocked Out at ' + currentTime
-      );
-      localStorage.setItem("clockInStatus", "clockedOut");
-      localStorage.setItem("clockOutTime", currentTime);
-      $("#clockInBtn").show();
-      $("#clockOutBtn").hide();
       getAttendance();
+      updateAttendanceStatusUI();
     },
     error: function (xhr, status, error) {
-      showAlert("danger", "Clocking out failed");
+      showAlert("danger", "You must clock in before clocking out");
       console.log("Error clocking out:", error);
     },
   });
@@ -151,28 +144,14 @@ function getAttendance() {
       }
 
       attendanceRecords.forEach((record) => {
-        let statusClass = "";
-        switch (record.status.toLowerCase()) {
-          case "present":
-            statusClass = "text-success";
-            break;
-          case "absent":
-            statusClass = "text-danger";
-            break;
-          case "leave":
-            statusClass = "text-warning";
-            break;
-          default:
-            statusClass = "text-secondary";
-        }
-
+        const statusBadge = getStatusBadge(record.status);
         const row = `
               <tr>
                 <td>${record.date}</td>
-                <td class="${statusClass}">${record.status}</td>
-                <td>${record.inTime}</td>
-                <td>${record.outTime}</td>
-                <td>${record.totalHours}</td>
+                <td >${statusBadge}</td>
+                <td>${record.inTime !== null ? record.inTime : "-"}</td>
+                <td>${record.outTime !== null ? record.outTime : "-"}</td>
+                <td>${record.totalHours !== null ? record.totalHours : "-"}</td>
               </tr>
             `;
         tableBody.append(row);
@@ -221,8 +200,14 @@ $("#applyDateRange").click(function () {
 
         // Time calculations
         if (record.inTime && record.outTime) {
-          const inTime = moment(`${record.date} ${record.inTime}`, "YYYY-MM-DD hh:mm A");
-          const outTime = moment(`${record.date} ${record.outTime}`, "YYYY-MM-DD hh:mm A");
+          const inTime = moment(
+            `${record.date} ${record.inTime}`,
+            "YYYY-MM-DD hh:mm A"
+          );
+          const outTime = moment(
+            `${record.date} ${record.outTime}`,
+            "YYYY-MM-DD hh:mm A"
+          );
           totalMinutes += moment.duration(outTime.diff(inTime)).asMinutes();
         }
 
@@ -232,8 +217,8 @@ $("#applyDateRange").click(function () {
             <td>${date}</td>
             <td>${day}</td>
             <td>${statusBadge}</td>
-            <td>${record.inTime || '-'}</td>
-            <td>${record.outTime || '-'}</td>
+            <td>${record.inTime || "-"}</td>
+            <td>${record.outTime || "-"}</td>
           </tr>
         `;
         $tbody.append(row);
@@ -242,7 +227,10 @@ $("#applyDateRange").click(function () {
       // Summary calculations
       const totalHours = Math.floor(totalMinutes / 60);
       const totalRemMin = Math.floor(totalMinutes % 60);
-      const avgHours = presentCount > 0 ? (totalMinutes / presentCount / 60).toFixed(1) : "0.0";
+      const avgHours =
+        presentCount > 0
+          ? (totalMinutes / presentCount / 60).toFixed(1)
+          : "0.0";
 
       // Update summary cards
       $("#presentDays").text(presentCount);
@@ -257,20 +245,27 @@ $("#applyDateRange").click(function () {
   });
 });
 
-
 function updateAttendanceTable(attendanceList) {
   const $tbody = $("#attendanceSectionTable");
   $tbody.empty(); // Clear existing rows
 
   $.each(attendanceList, function (index, record) {
     const date = new Date(record.date);
-  
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  
+
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+
     const dayName = daysOfWeek[date.getDay()];
-  
+
     const statusBadge = getStatusBadge(record.status);
-  
+
     const row = `
       <tr>
         <td>${record.date}</td>
@@ -280,7 +275,7 @@ function updateAttendanceTable(attendanceList) {
         <td>${record.outTime}</td>
       </tr>
     `;
-  
+
     $tbody.append(row);
   });
 }
@@ -295,26 +290,10 @@ function getStatusBadge(status) {
     case "absent":
       badgeClass = "danger";
       break;
-    case "late":
+    case "leave":
       badgeClass = "warning";
       break;
   }
 
   return `<span class="badge badge-gradient-${badgeClass}">${status}</span>`;
-}
-
-function showAlert(type, message) {
-  const alertClass = type === "success" ? "bg-success" : "bg-danger";
-  const alertHtml = `
-              <div class="alert ${alertClass} text-white alert-dismissible fade show" role="alert">
-                  ${message}
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-          `;
-
-  $("#alertContainer").append(alertHtml);
-
-  setTimeout(() => {
-    $(".alert").alert("close");
-  }, 3000);
 }

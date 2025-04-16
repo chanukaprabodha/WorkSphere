@@ -2,6 +2,8 @@ package lk.ijse.worksphere.service;
 
 import lk.ijse.worksphere.dto.DepartmentDTO;
 
+import java.util.List;
+
 /**
  * Author: Chanuka Prabodha
  * Date: 2025-03-23
@@ -11,4 +13,6 @@ import lk.ijse.worksphere.dto.DepartmentDTO;
 public interface DepartmentService {
     void saveDepartment(DepartmentDTO departmentDTO);
     void updateDepartment(DepartmentDTO departmentDTO);
+
+    List<DepartmentDTO> getAllDepartments();
 }

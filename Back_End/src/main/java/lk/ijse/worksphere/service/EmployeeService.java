@@ -11,7 +11,7 @@ import java.util.List;
 */
 
 public interface EmployeeService {
-    void saveEmployee(EmployeeDTO employeeDTO);
+    void saveEmployee(EmployeeDTO employeeDTO, String FilePath);
 
     void updateEmployee(EmployeeDTO employeeDTO);
 
@@ -28,4 +28,8 @@ public interface EmployeeService {
     List<EmployeeDTO> allBirthdays(String usernameFromToken);
 
     int getEmployeeCount(String token);
+
+    List<EmployeeDTO> searchEmployees(String keyword);
+
+    List<EmployeeDTO> getEmployeesWithoutUserAccounts();
 }

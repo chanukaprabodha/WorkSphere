@@ -30,4 +30,21 @@ public interface EmployeeRepo extends JpaRepository<Employee, String> {
             "FROM Employee e " +
             "ORDER BY MONTH(e.birthday), DAY(e.birthday)")
     List<Employee> findAllByBirthdayOrder();
+
+    @Query("SELECT e " +
+            "FROM Employee e " +
+            "WHERE LOWER(e.firstName) " +
+            "LIKE %:keyword% " +
+            "OR LOWER(e.lastName) " +
+            "LIKE %:keyword% " +
+            "OR e.id " +
+            "LIKE %:keyword%")
+    List<Employee> searchByNameOrId(@Param("keyword") String keyword);
+
+    @Query("SELECT e " +
+            "FROM Employee e " +
+            "WHERE e.id NOT IN (SELECT u.employee.id FROM User u)")
+    List<Employee> findEmployeesWithoutUserAccounts();
+
+
 }

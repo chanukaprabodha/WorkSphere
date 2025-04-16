@@ -32,9 +32,9 @@ public class UserController {
         this.jwtUtil = jwtUtil;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(value = "register")
     public ResponseEntity<ResponseDTO> registerUser(@RequestBody UserDTO userDTO) {
-        System.out.println("Registering user controller" + userDTO);
         try {
             int res = userService.saveUser(userDTO);
             switch (res) {

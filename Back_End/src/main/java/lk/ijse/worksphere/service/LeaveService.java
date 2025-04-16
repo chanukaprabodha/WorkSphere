@@ -1,6 +1,7 @@
 package lk.ijse.worksphere.service;
 
 import lk.ijse.worksphere.dto.LeaveDTO;
+import lk.ijse.worksphere.entity.Leave;
 
 import java.util.List;
 import java.util.Map;
@@ -23,4 +24,10 @@ public interface LeaveService {
     List<LeaveDTO> getRecentLeave(String token);
 
     List<LeaveDTO> getLeaveHistory(String token);
+
+    int getPendingLeaveCount();
+
+    List<LeaveDTO> getPendingLeave();
+
+    void updateLeaveStatus(String leaveId, Leave.Status status);
 }

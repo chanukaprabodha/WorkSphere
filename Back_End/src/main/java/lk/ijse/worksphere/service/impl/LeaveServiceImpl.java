@@ -1,15 +1,20 @@
 package lk.ijse.worksphere.service.impl;
 
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lk.ijse.worksphere.dto.LeaveDTO;
 import lk.ijse.worksphere.entity.Employee;
 import lk.ijse.worksphere.entity.Leave;
 import lk.ijse.worksphere.repository.EmployeeRepo;
 import lk.ijse.worksphere.repository.LeaveRepo;
+import lk.ijse.worksphere.service.EmailService;
 import lk.ijse.worksphere.service.LeaveService;
 import lk.ijse.worksphere.util.IdGenerator;
 import lk.ijse.worksphere.util.JwtUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static lk.ijse.worksphere.entity.Leave.Status.APPROVED;
-import static lk.ijse.worksphere.entity.Leave.Status.REJECTED;
+import static lk.ijse.worksphere.entity.Leave.Status.*;
 
 /**
  * Author: Chanuka Prabodha
@@ -43,6 +47,40 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private EmailService emailService;
+
+    private void sendLeaveStatusEmail(Employee employee, Leave leave, boolean accepted) {
+        String subject = "Leave Request " + (accepted ? "Approved" : "Rejected");
+        String content = buildHtmlEmailContent(employee, leave, accepted);
+        emailService.sendHtmlEmail(employee.getEmail(), subject, content);
+    }
+
+
+    private String buildHtmlEmailContent(Employee employee, Leave leave, boolean accepted) {
+        String statusColor = accepted ? "#28a745" : "#dc3545"; // green or red
+        String statusText = accepted ? "APPROVED" : "REJECTED";
+
+        return """
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+            <h2 style="text-align: center; color: #343a40;">Leave Request Update</h2>
+            <p>Dear <strong>%s</strong>,</p>
+            <p>Your leave request from <strong>%s</strong> to <strong>%s</strong> has been:</p>
+            <h3 style="color: %s; text-align: center;">%s</h3>
+            <p>If you have any questions, please reach out to your supervisor or HR.</p>
+            <hr style="margin: 30px 0;">
+            <p style="font-size: 14px; color: #6c757d;">This is an automated message from the WorkSphere.</p>
+        </div>
+        """.formatted(
+                employee.getFirstName() + " " + employee.getLastName(),
+                leave.getStartDate(),
+                leave.getEndDate(),
+                statusColor,
+                statusText
+        );
+    }
+
 
     @Override
     public void applyLeave(String token,LeaveDTO leaveDTO) {
@@ -165,5 +203,38 @@ public class LeaveServiceImpl implements LeaveService {
                 .stream()
                 .map(leave -> modelMapper.map(leave, LeaveDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int getPendingLeaveCount() {
+        return leaveRepo.countPendingLeaves();
+    }
+
+    @Override
+    public List<LeaveDTO> getPendingLeave() {
+        List<Leave> leaves = leaveRepo.findByStatus(PENDING);
+        return leaves.stream()
+                .map(leave -> {
+                   LeaveDTO dto = modelMapper.map(leave, LeaveDTO.class);
+                   if (leave.getEmployee() != null) {
+                       dto.setEmployeeId(leave.getEmployee().getFirstName() + " " + leave.getEmployee().getLastName());
+                   }
+                   return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void updateLeaveStatus(String leaveId, Leave.Status status) {
+        System.out.println("Updating leave status for ID: " + leaveId + " to " + status);
+        Leave leave = leaveRepo.findById(leaveId.trim())
+                .orElseThrow(() -> new RuntimeException("Leave not found"));
+        leave.setStatus(status);
+        leaveRepo.save(leave);
+
+        Employee employee = leave.getEmployee();
+        boolean accepted = (Leave.Status.valueOf(leave.getStatus().name()) == APPROVED);
+        sendLeaveStatusEmail(employee, leave, accepted);
+
     }
 }

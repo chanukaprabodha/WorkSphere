@@ -17,16 +17,31 @@ $(document).ready(function(e) {
             contentType: "application/json",
             success: function(response) {
                 window.localStorage.setItem("jwt_token", response.data.token);
-                console.log(response.data.roles);
                 if (response.data.roles == "ADMIN") {
                     window.location.href = "/pages/admin-dashboard.html";
                 }else if (response.data.roles == "EMPLOYEE") {
                     window.location.href = "/pages/user-dashboard.html#dashboardSection";
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
+                showAlert("danger", "Invalid email or password");
                 console.error("Error: " + error);
             }
         });
     });
 })
+
+function showAlert(type, message) {
+    const alertClass = type === "success" ? "bg-success" : "bg-danger";
+    const alertHtml = `
+                <div class="alert ${alertClass} text-white alert-dismissible fade show" role="alert">
+                    ${message}
+                </div>
+            `;
+  
+    $("#alertContainer").append(alertHtml);
+  
+    setTimeout(() => {
+      $(".alert").alert("close");
+    }, 3000);
+  }

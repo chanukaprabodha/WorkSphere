@@ -29,4 +29,12 @@ public interface AttendanceRepo extends JpaRepository<Attendance, String> {
             "AND a.date = CURRENT_DATE " +
             "AND a.inTime IS NOT NULL AND a.outTime IS NOT NULL")
     Optional<Attendance> findCompletedAttendanceToday(@Param("employeeId") String employeeId);
+
+    @Query(value = "SELECT COUNT(*) " +
+            "FROM attendance " +
+            "WHERE date = CURDATE()",
+            nativeQuery = true)
+    int countTodayClockIns();
+
+
 }

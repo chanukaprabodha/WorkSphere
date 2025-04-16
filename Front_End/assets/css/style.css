@@ -26304,3 +26304,79 @@ dl li {
   display: block;
 }
 /*# sourceMappingURL=maps/style.css.map */
+
+.employee-card {
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.employee-card:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transform: translateY(-5px);
+}
+
+.employee-avatar {
+  position: relative;
+}
+
+.status-indicator {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #fff;
+}
+
+.status-indicator.active {
+  background-color: #00d25b;
+}
+
+.status-indicator.away {
+  background-color: #ffab00;
+}
+
+.status-indicator.offline {
+  background-color: #fc424a;
+}
+
+.employee-details p {
+  font-size: 0.875rem;
+}
+
+.no-access-employee-card {
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  background-color: #f8f9fa;
+}
+
+.no-access-employee-card:hover {
+  background-color: #e9ecef;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.create-account-btn {
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
+}
+
+#noAccessCount {
+  font-size: 0.9rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.no-access-employees {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.no-access-employees::-webkit-scrollbar {
+  width: 5px;
+}
+
+.no-access-employees::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
