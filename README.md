@@ -7,6 +7,8 @@
 
 Welcome to **WorkSphere**, a modern Employee Management System built using Spring Boot. This system is developed to streamline HR operations, making it easier to manage employee data, track attendance and leaves, and handle user accounts in an organized, secure, and scalable way.
 
+![Image](https://github.com/user-attachments/assets/4e9f26f2-fb5d-40bc-9e5a-5b30907be41f)
+
 ---
 
 ## 📋 Project Description
@@ -128,41 +130,31 @@ To set up the backend of WorkSphere, follow these steps:
 
 ---
 
-## 🔐 Default Login
-
-For initial testing, you can use the following default credentials:
-
-| Role       | Username | Password |
-| ---------- | -------- | -------- |
-| Admin/User | test     | 123456   |
-
-**Important:** It is highly recommended to change these default credentials immediately after your first login for security reasons.
-
----
-
 ## 📸 Screenshots
-
-#### 🔐 Login Page
-
-(Replace `screenshots/login_page.png` with the actual path to your login page screenshot)
 
 #### 🧑‍💼 Employee Dashboard
 
-(Replace `screenshots/employee_dashboard.png` with the actual path to your employee dashboard screenshot)
+![Image](https://github.com/user-attachments/assets/08f1a002-e2b0-44a8-b9d9-677f0761ca97)
 
-#### 📋 Employee Profile View
+#### 📋 Attendance
 
-(Replace `screenshots/employee_profile_view.png` with the actual path to your employee profile view screenshot)
+![Image](https://github.com/user-attachments/assets/e094b5a6-7c95-4e1f-a346-60cbeaf61e87)
 
-#### 📆 Leave Summary + Modal View
+#### 📆 Leave Summary
 
-(Replace `screenshots/leave_summary.png` with the actual path to your leave summary screenshot)
+![Image](https://github.com/user-attachments/assets/0772b916-e6ea-49ec-ae22-761439392d6b)
 
-(Replace `screenshots/leave_modal.png` with the actual path to your leave modal screenshot)
+#### 👨🏻‍💻 Admin Dashboard
 
-#### 🎂 Birthday Section
+![Image](https://github.com/user-attachments/assets/25e43de8-c484-4d28-93ea-813b07a3d49c)
 
-(Replace `screenshots/birthday_section.png` with the actual path to your birthday section screenshot)
+### 📧 Emails
+
+![Image](https://github.com/user-attachments/assets/6f578985-0ea9-4f14-ac03-c76d2b791e66)
+
+### 🔐 Forgot Password
+
+![Image](https://github.com/user-attachments/assets/af0fb2e3-2f1d-427c-a723-ac29ecf002a2)
 
 ---
 
@@ -170,7 +162,7 @@ For initial testing, you can use the following default credentials:
 
 Watch a full walkthrough and demonstration of the WorkSphere Employee Management System on YouTube:
 
-(Replace the link above with the actual link to your demo video)
+https://youtu.be/a_9rHUQzvUM
 
 ---
 
